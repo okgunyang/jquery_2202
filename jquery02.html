@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 선택자</title>
+    <script src="jquery-1.12.4.js"></script>
+    <style>
+    .highlight { font-weight:900; }
+    </style>
+</head>
+<body>
+    <div id="con">
+        <ul class="lst">
+            <li><a href="https://jquery.com">텍스트1</a></li>
+            <li><a href="index.html">텍스트2</a></li>
+            <li><a>텍스트3</a></li>
+        </ul>
+    </div>
+    <br>
+    <button type="button" id="btn1">버튼1</button>
+    <br>
+    <script>
+    $(function(){
+        //jQuery 선택자 연습
+        $("*").css("margin","0px").css("padding","0px");    //전체 선택자
+        $("a").css("text-decoration", "none").css("color","deeppink").addClass("highlight");    //태그 선택자
+        $("#con").css({"margin-top":"30px", "padding":"20px"}); //아이디 선택자
+        $(".lst").css("list-style", "none");    //클래스 선택자
+        $("a[href]").css("background-color", "deepskyblue");    //속성 존재유무 선택자
+        $("a[href*='https'").css("padding","15px"); //속성 포함하는 선택자
+        $("a[href$='.html'").css("background","orange");    
+
+        //속성 선택자
+        //속성 일치 [속성='값']
+        //속성 불일치 [속성!='값']
+        //포함하는 문자열 : [속성*='문자열'] 
+        //속성 접미사 : [속성$='접미사'] [속성~='접미사']
+        //속성 접두사 : [속성|='접두사'], [속성^='접두사']
+
+        //순서 위치 선택자
+        //첫 번째 요소 : :first-child, :first-of-type, :eq(0), :nth-child(1), :nth-of-type(1), :first
+        //특정 번째 요소  :nth-child(n번째), :nth-of-type(n번째), :eq(인덱스)
+        //마지막 요소   :last-chlid, :last-of-type, :last
+        //:even  짝수 번째 요소
+        //:odd  홀수 번째 요소 
+        //:empty  내용이 없는 요소 선택
+        //only-of-type  내부 요소가 혼자인 경우 선택
+        //범위 요소   :lt(인덱스), :gt(인덱스)
+
+        //가상 요소 선택자
+        //:before : 특정 요소의 앞 부분 선택
+        //:after : 특정 요소의 뒤 부분 선택
+        //:checked : 체크박스나 라디오 버튼이 체크된 경우 선택
+        //:animated : 애니메이션이 동작 중인 요소 선택
+        //:focus : 현재 커서가 위치한 요소 선택
+        //:enabled : 사용 가능한 폼 요소 선택
+        //:disabled : 사용이 불가능한 요소 선택
+        //:selected : 셀렉트 된 요소 선택
+        //:readonly : 읽기 전용이 적용된 요소 선택
+        //:required : 필수 요소로 적용된 요소 선택
+        //:visible : 화면에 보여지는 요소 선택
+
+        // 폼 요소(type) 선택자
+        //:button : 버튼 요소 선택  
+        //:text : 텍스트 요소 선택
+        //:password : 패스워드 요소 선택
+        //:checkbox : 체크 박스 요소 선택
+        //:radio : 라디오 버튼 요소 선택
+        //:file  : 파일 요소 선택
+        //:hidden : 히든 요소 선택
+        //:submit : 서브밋 요소 선택
+        //:reset : 리셋 요소 선택
+        //:input : 입력 요소 선택
+
+        $("#btn1").click(function(){
+            var cnt = $(".lst li").length + 1;  //후손 선택자
+            //var cnt = $(".lst > li").length + 1;  - 자식 선택자
+            $(".lst").append("<li><a href=''>텍스트"+cnt+"</a></li>")
+        });
+        
+    });    
+    </script>
+</body>
+</html>

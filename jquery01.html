@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery의 시작</title>
+    <script src="jquery-1.12.4.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-latest.js"></script> -->
+    <script>
+    $(doucment).ready(function(){
+        $("#con").text("김태엽"); 
+    });    
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>jQuery 의 연결</h1>
+        <p>해당 프로젝트에 다운로드 받아 연결하거나 CDN 방식으로 연결한다.</p>
+        <p>항상 최신판을 유지할 경우는 https://code.jquery.com/jquery-latest.js 로 연결</p>
+        <p>다만, 현재 진행하거나 예전에 진행했던 프로젝트일 때 유지보수상 latest.js는 사용하지 않는 것이 좋다.</p>
+        <br><hr><br>
+        <h1>jQuery의 적용</h1>
+        <p>해당 요소의 아래에 전개할 경우는 다음과 같다.</p>
+        <p>
+            <pre>
+                $(function(){    
+                    $("#con").text("김기태");    
+                });    
+            </pre>
+        </p>
+        <br>
+        <p>해당 요소의 위에 전개할 경우는 다음과 같다.</p>
+        <p>
+            <pre>
+                $(doucment).ready(function(){
+                    $("#con").text("김태엽"); 
+                });       
+            </pre>
+        </p>
+    </div>
+    <div id="con"></div>
+    <script>
+    function abc() {        alert("김기태");    }    
+    $(function(){    
+        $("#con").text("김기태");    
+    });    
+    </script>
+</body>
+</html>

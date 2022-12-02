@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <!-- Add the slick-theme.css if you want default styling -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <!-- Add the slick-theme.css if you want default styling -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <style>
+    * { margin: 0; padding: 0; }
+    body, html { width:100%; overflow-x:hidden; }
+    /* #slick1 div img { display:block; width: 100%; height:auto;}  */
+    .slick-prev { left:50px; border-radius:50px; background-color: #fff; z-index:99; }
+    .slick-next { right:50px; border-radius:50px; background-color: #fff; z-index:99; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="slider single-item" id="slick1">
+            <div>
+                <img src="img1.jpg" alt="">
+            </div>
+            <div>
+                <img src="img2.jpg" alt="">
+            </div>
+            <div>
+                <img src="img3.jpg" alt="">
+            </div>
+            <div>
+                <img src="img4.jpg" alt="">
+            </div>
+            <div>
+                <img src="img5.jpg" alt="">
+            </div>
+        </div>
+    </div>
+    <script>
+    $(document).ready(function(){
+        $('#slick1').slick({
+            dots: true,
+            infinite: true,
+            speed: 300,
+            slidesToShow: 1,
+            adaptiveHeight: true
+        });
+    });
+    </script>
+</body>
+</html>

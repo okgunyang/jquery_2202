@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>데이터 출력</title>
+    <script src="jquery-1.12.4.js"></script>
+</head>
+<body>
+    <div class="lab">
+        <h2> JSON TEST </h2>
+        <div id="textbox"></div>
+        <button id="getText">data 가져오기</button>
+        <button id="getText2">data 가져오기2</button>
+        <!-- 웹서버 통신을 위해 웹서버 서버URL 필요 -->
+    </div>
+    <script>
+    $(function(){
+        $("#getText").click(function(){
+            $("#textbox").text("글자 입력 테스트");
+            $("#textbox").append("<br>")
+
+            var req = $.ajax({
+                url: "data.txt",
+                dataType: "json"
+            }); // txt를 데이터타입 설정을 통해 json객체로 받아옴. ==> 파싱 필요 없음
+
+            req.done(function(data, status){
+                for(var i = 0; i<data.length; i++)
+                {
+                    var str = data[i].name+"<br>";
+                    $("#textbox").append(str);
+                }
+            });
+        });
+
+        $("#getText2").click(function(){ 
+            var req = $.ajax("data.json"); 
+            req.done(function(data, status){
+                var tb = $("<table/>"); // 새로운 객체를 생성하는 구문 <  />
+                var row = $("<tr/>").append(
+                    $("<th/>").text("이름"),
+                    $("<th/>").text("아이디"),
+                    $("<th/>").text("학과"),
+                    $("<th/>").text("수강과목")
+                );
+                tb.append(row);
+
+                for(var i = 0; i<data.length; i++){
+                    var name = data[i].name;
+                    var id = data[i].id;
+                    var department = data[i].department;
+                    var classes = data[i].class
+                    var row = $("<tr/>").append(
+                    $("<th/>").text(name),
+                    $("<th/>").text(id),
+                    $("<th/>").text(department),
+                    $("<th/>").text(classes.join(", ")) 
+                );
+                tb.append(row);
+                }
+                $("#textbox").html(tb);
+            });
+        });
+    });    
+    </script>
+</body>
+</html>
