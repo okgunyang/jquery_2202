@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 15 : 속성 선택자2</title>
+    <script src="./jquery-1.12.4.js"></script> 
+</head>
+<body>
+    <section class="container">
+        <h1>속성 선택자 응용</h1>
+        <div id="imgList">
+            <img src="a.jpg" alt=""><img src="b.png" alt=""><img src="c.gif" alt="">
+        </div>
+        <nav id="gnb">
+            <ul>
+                <li><a href="company.jsp">회사소개</a></li>
+                <li><a href="proList.do">제품</a></li>
+                <li><a href="serList.jsp?serno=1">서비스</a></li>
+                <li><a href="boardList.do">커뮤니티</a></li>
+                <li><a href="consulList.do?sid=kim">온라인 상담</a></li>
+            </ul>
+        </nav>
+        <nav id="quick"><ul class="menu"></ul></nav>
+    </section><br><hr><br>
+    <script>
+    $(document).ready(function(){
+        //아이디가 imgList인 내부 요소 img의 너비를 200px, 높이를 300px로 변경
+        $("#imgList img").width(200).height(300);
+        //아이디가 imgList인 내부 요소 img의 src속성이 jpg인 경우 5px 빨간색 테두리
+        $("#imgList img[src$='.jpg']").css("border","5px solid red");
+        //아이디가 imgList인 내부 요소 img의 src속성이 png인 경우 5px 초록색 테두리
+        $("#imgList img[src$='.png']").css("border","5px solid green");
+        //아이디가 imgList인 내부 요소 img의 src속성이 gif인 경우 5px 파란색 테두리
+        $("#imgList img[src$='.gif']").css("border","5px solid blue");
+        //아이디가 gnb인 내부 요소인 a 요소의 href속성에 .do가 포함되어 있는 요소만 
+        //아이디가 quick안의 클래스 menu의 내부 요소로 추가
+        $("#gnb a[href*='.do']").each(function(){
+            $("#quick .menu").append("<li><a href='"+$(this).attr("href")+"'>"+$(this).text()+"</a></li>");
+        });
+    });    
+    </script>
+</body>
+</html>

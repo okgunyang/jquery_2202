@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 12 : 특정 번째 자식 요소</title>
+    <script src="./jquery-1.12.4.js"></script> 
+</head>
+<body>
+    <section class="container">
+        <h1>특정 번째 자식 요소(:nth-child(n))</h1>
+        <div>
+            <ul><li>사과</li><li>바나나</li><li>복숭아</li></ul>
+         </div>
+         <div><ul><li>소나타</li></ul></div>
+         <div>
+            <ul><li>코끼리</li><li>뱀</li><li>토끼</li><li>말</li></ul>
+         </div>
+    </section><br><hr><br>
+    <script>
+    $(document).ready(function(){
+        //li중에서 홀수 번째 자식 요소마다 글자색을 파랑으로 함.
+        $("li:nth-child(odd)").css("color","blue");
+        //$("li:nth-child(2n+1)").css("color","blue");
+        //li중에서 짝수 번째 자식 요소마다 글자색을 빨강으로 함.
+        $("li:nth-child(even)").css("color","red");
+        //$("li:nth-child(2n)").css("color","red");
+        //li중에서 2번 째 요소마다 배경색을 하늘색으로 하며, 2nd~! 텍스트를 추가
+        $("li:nth-child(2)").css("background-color","skyblue").append(" - 2nd~!");
+    });    
+    </script>
+</body>
+</html>

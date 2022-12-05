@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 11 : 첫 번째 자식 요소와 마지막 자식 요소</title>
+    <script src="./jquery-1.12.4.js"></script> 
+</head>
+<body>
+    <section class="container">
+        <h1>첫 번째 자식 요소(:first-child)와 마지막 자식 요소(:last-child)</h1>
+        <div> 
+            <span>one,</span><span>two,</span><span>three,</span><span>four</span>
+        </div> 
+        <div>      
+            <span>five,</span><span>six,</span><span>seven,</span><span>eight</span>
+        </div>
+    </section><br><hr><br>
+    <script>
+    $(document).ready(function(){
+        //span의 첫 번째 자식 요소와 마지막 자식 요소에 배경색을 딥핑크로 설정
+        $("span:first-child, span:last-child").css("background", "deeppink");
+    });    
+    </script>
+</body>
+</html>

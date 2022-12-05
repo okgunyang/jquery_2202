@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 16 : 폼 컨트롤 선택자</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { width:1000px; margin:20px auto; }  
+    div { clear:both; }
+    label { display:inline-block; width:100px; }  
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h1>폼 컨트롤 선택자</h1>
+        <article id="joinFrm">
+            <div class="item"> 
+                <label for="userId"> 아이디 * </label> 
+                <input id="userId" type="text">
+            </div>
+            <div class="item"> 
+                <label for="userName"> 이름   * </label> 
+                <input id="userName" type="text" value="성명을 입력">
+            </div>
+            <div class="item"> 
+                <label for="pwd"> 암호   * </label> 
+                <input id="pwd" type="password">
+            </div>
+            <div class="item"> 
+                <label for="pwdConfirm"> 암호 확인  * </label> 
+                <input id="pwdConfirm" type="password">
+            </div>
+            <input type="button" id="regBtn" value="회원가입">      
+        </article>
+    </section><br><hr><br>
+    <div id="msg"></div>
+    <script>
+    $(document).ready(function(){
+   //아이디, 이름, 암호, 암호확인을 입력하고, #regBtn을 누르면
+   //데이터의 유효성을 검사하도록 하고, 그 데이터를 ajaxJoin.do로
+   //비동기방식으로 보내도록 하시오.
+        $("#userName").click(function(){
+            $(this).val("");
+        });
+        var pass = "no";
+        var source;
+        $(":button").click(function(){
+            $(":text, :password").each(function(){
+                if($(this).val()==""){
+                    alert("입력 데이터가 비어 있습니다.");
+                    return false;
+                } else {
+                    pass = "yes";
+                }
+            });
+        });
+        if(pass=="yes"){
+            source = { "id":$("#usetId").val(), "pw":$("#pwd").val(), "name":$("#userName").val() };
+            $.ajax({
+                url:"ajaxJoin.do?member="+source,  
+                type:"get",
+                dataType:"json",
+                success:function(res){
+                    $("#msg").text(res);
+                },
+                error:function(res, status, err){
+                    alert(res+"가 "+err+"로 인해서 정상적으로 처리되지 못했습니다.");
+                }
+            });
+        }
+    });    
+    </script>
+</body>
+</html>

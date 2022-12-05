@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 10 : 후 혹은 전에 위치한 요소</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>  
+    table {   table-layout:auto;   width: 75%;} 
+    .textstyle { color: blue;   font-weight: bold; background-color: pink}  
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h1>후(:gt()) 혹은 전(:lt())에 위치한 요소</h1>
+        <table>
+            <tr><td>zero</td></tr><tr><td>one</td></tr><tr><td>two</td></tr>
+            <tr><td>three</td></tr><tr><td>four</td></tr><tr><td>five</td></tr>
+         </table>
+    </section><br><hr><br>
+    <script>
+    $(document).ready(function(){
+        //eq(index), lt(index), gt(index)
+        //td의 세 번째 후 요소에 글자색을 빨강으로 변경
+        $("td:gt(2)").css("color", "red");
+        //td의 다섯 번째 전 요소에 textstyle 클래스를 부여
+        $("td:lt(4)").addClass("textstyle");
+    });    
+    </script>
+</body>
+</html>

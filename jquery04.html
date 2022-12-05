@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 04 - 후손 요소와 자식 요소</title>
+    <script src="./jquery-1.12.4.js"></script>
+</head>
+<body>
+    <section class="container">
+        <h1>후손과 자식 요소 선택</h1>
+        <div>
+            <em>Hello!</em>   <em>jQuery</em>   <p><em>plugin</em></p> <em>forever</em>
+         </div><br><hr><br>
+         <span>
+            <em>Good Bye!</em>   <em>javascript</em> <p><em>plugin</em></p>
+         </span> 
+    </section>
+    <script>
+    $(function(){
+        $("div > em").css("color", "red");  //div 자식 em 요소 선택
+        $("div em").css("backgroundColor", "yellow");   //div 후손 em 요소 선택
+        //span 자식 em요소에 글자색을 흰색(white)로 할 것
+        $("span > em").css("color", "white"); 
+        //span 후손 em요소에 배경색을 딥핑크(deeppink)로 할 것
+        $("span em").css("background-color", "deeppink"); 
+    });    
+    </script>
+</body>
+</html>

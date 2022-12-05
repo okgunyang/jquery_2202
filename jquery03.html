@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery 03 - 복수 요소 선택</title>
+    <script src="./jquery-1.12.4.js"></script>
+    <script>
+    $(document).ready(function(){
+        var $dt = $("span, .simpletext1, p");       //선택자 변수
+        $(".container").append("<div class='res'>요소의 개수 : "+$dt.length+"</div>");
+    });    
+    </script>
+</head>
+<body>
+    <h1>복수 요소의 선택</h1>
+    <div class="container">
+        <span>Simple</span>
+        <div class="simpletext1">jQuery</div>
+        <div>basic</div>
+        <p>example</p>
+        <p>easyJquery</p>
+    </div>
+    <div class="container"></div><div class="container"></div>
+</body>
+</html>

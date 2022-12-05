@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 07 : 첫 요소와 마지막 요소</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+   table { table-layout:auto;   width: 75%;}
+   td { color: blue;   font-weight: bold; }
+   .selectedstyle {color: red;  font-size: 20pt;   background-color: pink;  }
+    </style>
+</head>
+<body>
+    <script>
+    $(document).ready(function(){
+    //td의 첫 요소와 마지막 요소를 선택하여 해당 요소에 selectedstyle 클래스를 부여하고, 첫 요소의 텍스트는 클래스 result1에 마지막 요소의 텍스트는 클래스 result2에 출력
+        $("td:first, td:last").addClass("selectedstyle");
+        $(".result1").text("첫 요소 : "+$("td:first").text());
+        $(".result2").text("마지막 요소 : "+$("td:last").text());
+    });    
+    </script>
+    <section class="container">
+        <h1>첫 요소(:first)와 마지막 요소(:last)</h1>
+        <table>
+            <tr><td>one</td></tr>       <tr><td>two</td></tr>       <tr><td>three</td></tr>
+            <tr><td>four</td></tr>       <tr><td>five</td></tr>
+         </table>
+    </section><br><hr><br>
+    <div class="result1"></div><div class="result2"></div>
+</body>
+</html>

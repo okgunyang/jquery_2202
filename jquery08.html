@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 08 : 짝수 번째 요소와 홀수 번째 요소</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>  table {   table-layout:auto;   width: 75%;} </style>
+</head>
+<body>
+    <script>
+    $(document).ready(function(){
+        //td의 인덱스가 짝수 번째는 글자색을 빨강, 글자 크기를 30px로 변경 - 메서드 체이닝
+        $("td:even").css("color", "#ff0000").css("font-size", "30px");
+        //td의 인덱스 홀수 번째는 배경색을 빨강, 글자 크기를 30pt로 변경 - 속성 열거법
+        $("td:odd").css({"background-color":"red", "font-size":"30pt"});
+    });    
+    </script>
+    <section class="container">
+        <h1>짝수 번째 요소(:even)와 홀수 번째 요소(:odd)</h1>
+        <table>
+            <tr><td>zero</td></tr><tr><td>one</td></tr>
+            <tr><td>two</td></tr><tr><td>three</td></tr>
+            <tr><td>four</td></tr><tr><td>five</td></tr>
+         </table>
+    </section><br><hr><br>
+</body>
+</html>

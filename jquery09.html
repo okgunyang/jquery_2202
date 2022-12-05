@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 09 : 특정 번째 요소</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>  table {   table-layout:auto;   width: 75%;} </style>
+</head>
+<body>
+    <section class="container">
+        <h1>특정 번째 요소 - eq(index), nth-child(n)</h1>
+        <table>
+            <tr><td>zero</td><td>one</td><td>two</td></tr><tr><td>three</td><td>four</td><td>five</td></tr>
+         </table>
+    </section><br><hr><br>
+    <script>
+    $(document).ready(function(){
+        //td의 3의 배수 번째는 글자색을 빨강, 글자 두께를 900으로 변경 - nth-child(n)
+        $("td:nth-child(3n)").css({"color":"red", "font-weight":"900"});
+        //td의 네 번째 요소에 배경색을 핑크색, 글자색을 빨강으로 변경 - eq(index)
+        $("td:eq(3)").css("background-color", "pink").css("color", "red");
+    });    
+    </script>
+</body>
+</html>

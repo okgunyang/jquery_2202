@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 14 : 속성 선택자</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .spotlight {   background-color: #ff0;}
+    .redtext {   color: #f00;}
+    .bluetext {   color: #00f;}
+    .largetext {   font-size: 30pt;}
+    .italictext {   font-style: italic;}
+    .box {   border: 3px solid #f00;}
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h1>속성 선택자</h1>
+        <div> 
+            <span data="simpletext1">simple</span>
+            <span class="simpletext2">jQuery</span>
+            <span data="complextext1">basic</span>
+            <span data="complextext2">example</span>
+            <span data="complex">book</span>
+        </div> 
+    </section><br><hr><br>
+    <script>
+    $(function(){
+        //data 속성이 있는 요소에 대하여 spotlight 클래스 추가
+        $("[data]").addClass("spotlight");
+        //data 속성이 comple 로 시작하는 요소에 대하여 redtext 클래스를 추가
+        $("[data^='comple']").addClass("redtext");
+        //$("[data|='comple']").addClass("redtext");
+        //data 속성이 text1로 끝나는 요소에 대하여 box 클래스를 추가
+        $("[data$='text1']").addClass("box");
+        //data 속성이 text가 포함된 요소에 대하여 largetext 클래스를 추가
+        $("[data*='text']").addClass("largetext");
+        //$("[data~='text']").addClass("largetext");
+    });    
+    </script>
+</body>
+</html>

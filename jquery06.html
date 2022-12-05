@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 06 : prev + next, prev ~ nextall</title>
+    <script src="./jquery-1.12.4.js"></script>  
+</head>
+<body>
+    <section class="container">
+        <h1>인접 요소 선택</h1>
+        <p>
+            <em> one  </em>   <a> two  </a>   <a> three  </a>   <b> four </b>   <a> five </a>   <em> six </em>
+            <a> seven </a>
+        </p>
+    </section><br><hr><br>
+    <div>
+        <span> prev + next로 검색된 엘리먼트 : </span>
+        <span class="result1"></span>
+     </div>
+     <div id="result2">
+        <span> prev ~ nextall로 검색된 엘리먼트 : </span>
+     </div> 
+     <script>
+     $(function(){
+        //em의 바로 다음에 나오는 a요소의 텍스트를 찾아 클래스가 result1인 곳에 출력
+        var $t = $("em + a");
+        $t.each(function(){
+            $(".result1").append($(this).text());
+        });
+        $(".result1").append(", <span>요소의 수 : "+$t.length+"</span>");
+        //em의 동생들 요소중에서 a요소의 텍스트를 찾아 아이디가 result2인 곳에 출력
+        var len = 0;
+        $.each($("em ~ a"), function(index, value) {
+            len++;
+            $("#result2").append(value);
+        });
+        $("#result2").append(", <span>요소의 수 : "+len+"</span>");
+     });   
+     </script> 
+</body>
+</html>

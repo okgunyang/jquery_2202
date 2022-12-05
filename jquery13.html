@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 13 - :checkbox, :checked, not(:checked)</title>
+    <script src="./jquery-1.12.4.js"></script> 
+</head>
+<body>
+    <section class="container">
+        <h1>체크박스(:checkbox), 체크된 상태(:checked), 체크되지 않은 상태(not(:checked))</h1>
+        <div>
+            <h2>좋아하는 과일은 ?</h2>
+        </div>
+        <div>
+            <input type="checkbox" name="fruit" /> <span>샤인머스킷</span>
+        </div>
+        <div>
+            <input type="checkbox" name="fruit" /> <span>망고</span>
+        </div>
+        <div>
+            <input type="checkbox" name="fruit" checked="checked" /><span>두리안</span>
+        </div>
+    </section><br><hr><br>
+    <script>
+    $(document).ready(function(){
+        //체크박스의 다음 요소 span에 배경색을 빨강으로 설정
+        $("input:checkbox + span").css("background","red");
+        //$("input[type=checkbox]").css("background","red");
+
+        $("input[type=checkbox]:checked + span").css("color", "green");
+        $("input[type=checkbox]:not(:checked) + span").css("color", "white");
+
+        $("input:checkbox").click(function(){
+            //체크박스가 체크되면, 그 다음 요소 span의 글자색을 그린으로 변경
+            $("input[type=checkbox]:checked + span").css("color", "green");
+            //체크박스가 체크 해제되면, 그 다음 요소 span의 글자색을 흰색으로 변경
+            $("input[type=checkbox]:not(:checked) + span").css("color", "white");
+        });
+        //이벤트트리거 : 이벤트를 자동으로 강제 발생  
+        //$(선택자).이벤트메서드(function(){ 이벤트내용; }).이벤트메서드()
+    });    
+    </script>
+</body>
+</html>
