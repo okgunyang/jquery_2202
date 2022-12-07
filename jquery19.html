@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 19 : class 추가 및 제거 메소드</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+	.gbor {   border:10px solid green;     }
+    .data img { width: 200px; transition-duration:0.8s;}
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h1>기본 메소드 - addClass(), removeClass()</h1>
+        <article class="data">
+            <button> 선색 변경 </button>
+            <img src="jinkyoung1.jpg" title="당신의 애인사진1" alt="Lover picture" class="img1">
+            <img src="jinkyoung2.jpg" title="당신의 애인사진2" alt="Lover picture" class="img1">
+            <img src="blackpink.jpg" title="당신의 애인사진2" alt="Lover picture" class="img2">
+        </article>
+    </section><br><hr><br>
+    <script>
+    $(document).ready(function(){
+        var sw = true;
+        //버튼을 클릭하면, img1 클래스의 img 요소에 .gbor을 교대로 적용(스위치 개념)
+        $("button").click(function(){
+            if(sw) {
+                $(".img1").addClass("gbor");
+            } else {
+                $(".img1").removeClass("gbor");
+            }
+            sw = !sw;
+        });
+    });    
+    </script>
+</body>
+</html>

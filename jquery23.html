@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 23 : 폼 요소의 get/set 메소드</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { width:1000px; margin:20px auto; }  
+	.gbor {   border:10px solid green;     }
+    .data img { width: 200px; transition-duration:0.8s;}
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h1>기본 메소드 - val()</h1>
+        <article class="data">
+            <button id="submit">값 전송</button>
+            <button id="reset">초기화</button>
+            <input type="text" size="30" title="id입력" placeholder="id" id="m_id">
+            <div id="console"></div>
+        </article>
+    </section><br><hr><br>
+    <script>
+    $(document).ready(function(){
+        //아이디가 reset 인 버튼을 클릭하면, 아이디가 m_id 인 요소의 입력값을 비우고,
+        $("#reset").click(function(){
+            $("#m_id").val("");
+        });
+        //아이디가 submit 인 버튼을 클릭하면, 값이 비어 있는지 검증을 하고, 값이 있는 경우 그 값을 아이디가 console 인 곳에 텍스트로 출력
+        $("#submit").click(function(){
+            var data = $("#m_id").val();
+            if(data==""){
+                alert("값을 입력해 주세요");
+            } else {
+                $("#console").text(data);
+                //report(data);
+            }
+        });
+        function report(msg){
+            $("#console").text(msg);
+        }
+    });    
+
+    </script>
+</body>
+</html>

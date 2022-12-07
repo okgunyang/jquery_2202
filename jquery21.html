@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 21 : class 존재 여부 메소드</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { width:1000px; margin:20px auto; }  
+	.gbor {   border:10px solid green;  transition-duration:0.8s;   }
+	.bbor {   border:10px solid blue;  transition-duration:0.8s;   }
+    .rbor {   border:10px solid red;   transition-duration:0.8s;  }
+    .data img { width: 200px; transition-duration:0.8s;}
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h1>기본 메소드 - hasClass()</h1>
+        <article class="data">
+            <button> 선색 변경 </button>
+            <img src="jinkyoung1.jpg" title="당신의 애인사진1" alt="Lover picture" class="img1 gbor">
+            <img src="jinkyoung2.jpg" title="당신의 애인사진2" alt="Lover picture" class="img1 bbor">
+            <img src="blackpink.jpg" title="당신의 애인사진2" alt="Lover picture" class="img1 rbor">
+        </article>
+    </section><br><hr><br>
+    <script>
+    $(document).ready(function(){
+        //버튼을 클릭하면, img1 클래스의 img 요소에 .gbor, .bbor, .rbor 을 교대로 적용
+        $("button").click(function(){
+            $(".img1").each(function(){
+                if($(this).hasClass("gbor")){
+                $(this).removeClass("gbor").addClass("bbor");
+                } else if($(this).hasClass("bbor")) {
+                    $(this).removeClass("bbor").addClass("rbor");
+                } else {
+                    $(this).removeClass("rbor").addClass("gbor");
+                }
+            });
+        });
+    });    
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 18 : attribute 제거 메소드</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { width:1000px; margin:20px auto; }  
+    .imgFrame { width:90px; margin:60px auto; border-bottom:3px dashed #333;
+     border-top:3px dashed #333; padding-top:10px; }
+    .imgFrame button { border:0; outline:0; background:#333;
+        color:#fff; width:90px; height:40px; margin-bottom:40px; } 
+    .imgFrame img { width:200px; }
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h1>기본 메소드 - removeAttr()</h1>
+        <article class="data">
+            <div class="imgFrame">
+                <button> 어트리뷰트 값 제거하기 </button> 
+                <img src="yourPhoto1.jpg" title="당신의 애인사진1" alt="Lover picture">
+           </div>     
+           <div class="imgFrame">
+                <button> 어트리뷰트 값 제거하기 </button> 
+                <img src="yourPhoto2.jpg" title="당신의 애인사진2" alt="Lover picture"> 
+           </div>
+        </article>
+    </section><br><hr><br>
+    <script>
+    $(document).ready(function(){
+        //버튼을 클릭하면, 그 버튼의 다음 요소인 img 요소의 src 속성을 제거하시오.
+        $("button").click(function(){
+            $(this).next().removeAttr("src");
+        });
+    });    
+    </script>
+</body>
+</html>
