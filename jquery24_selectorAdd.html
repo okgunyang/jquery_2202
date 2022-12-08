@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 24 : 선택자의 추가</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { width:1000px; margin:20px auto; } 
+    div { width: 60px;   height: 60px;   margin: 10px;   float: left;}
+    p { clear:both;}
+    .rB { border: 2px solid red; }
+    .yB { background: yellow; } 
+    </style>
+    <script>
+    $(function(){
+        //버튼을 누르면 눌려진 버튼의 글자크기를 20px로 적용하고, div 요소를 추가 선택하여 둘 다 "이벤트 적용" 텍스트가 입력될 수 있도록 한다.
+        //버튼을 누르면 div 요소에 .rB를 적용하고, p요소를 선택자를 추가하여 .yB를 적용
+        $("button").on("click", function(){
+            $(this).css("font-size","20px").add("div").text("이벤트 적용");
+            $("div").addClass("rB").add("p").addClass("yB");
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>선택자 추가 메소드 - add()</h1>
+        <article class="data">
+            <button class="btn"> 클릭 </button>
+            <div></div>   <div></div>    <div></div>
+            <p> rB 클래스의 적용은 받지 못하고 yB 클래스의 적용 받음</p>
+        </article>
+    </section><br><hr><br>
+</body>
+</html>

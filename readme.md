@@ -1129,6 +1129,428 @@ jQuery에 선택자로 원하는 요소를 선택하지 못하는 경우 선택�
 | prevUntil(제한점, ["선택자"]) | 앞서 선택한 요소의 이전 요소들중에서 지정한 선택자중 제한점 전까지의 요소를 선택 |
 | siblings(["선택자"]) | 앞서 선택한 요소의 형제(이전이후모두) 요소를 모두 선택 |
 
+
+### jQuery 선택자 추가 메소드
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 24 : 선택자의 추가</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { width:1000px; margin:20px auto; } 
+    div { width: 60px;   height: 60px;   margin: 10px;   float: left;}
+    p { clear:both;}
+    .rB { border: 2px solid red; }
+    .yB { background: yellow; } 
+    </style>
+    <script>
+    $(function(){
+        //버튼을 누르면 눌려진 버튼의 글자크기를 20px로 적용하고, div 요소를 추가 선택하여 둘 다 "이벤트 적용" 텍스트가 입력될 수 있도록 한다.
+        //버튼을 누르면 div 요소에 .rB를 적용하고, p요소를 선택자를 추가하여 .yB를 적용
+        $("button").on("click", function(){
+            $(this).css("font-size","20px").add("div").text("이벤트 적용");
+            $("div").addClass("rB").add("p").addClass("yB");
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>선택자 추가 메소드 - add()</h1>
+        <article class="data">
+            <button class="btn"> 클릭 </button>
+            <div></div>   <div></div>    <div></div>
+            <p> rB 클래스의 적용은 받지 못하고 yB 클래스의 적용 받음</p>
+        </article>
+    </section><br><hr><br>
+</body>
+</html>
+```
+
+### jQuery 선택자 필터 메소드
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 25 : 선택자의 필터</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    div { width: 60px; height: 60px; margin: 5px; float: left; border: 2px white solid; }
+    </style>
+    <script>
+    $(function(){
+        //버튼을 누르면 div 요소에 배경색을 노랑으로 하고, 선택했던 요소들 중에서 mid 클래스가 존재하는 요소에 대하여는 테두리색을 빨강색으로 변경적용
+        $("button").on("click", function(){
+            $("div").css("background", "yellow").filter(".mid").css("border-color", "red");
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>선택자 필터 메소드 - filter()</h1>
+        <article class="data">
+            <button style="clear:both;" id="btn1">버튼</button>
+            <div id="first"></div>	
+            <div id="second" class="mid"></div>
+            <div id="third"  class="mid"></div>
+            <div id="fourth"  class="mid"></div>
+            <div id="fifth"  class="mid"></div>
+            <div id="sixth"></div>
+        </article>
+    </section><br><hr><br>
+</body>
+</html>
+```
+
+### jQuery 선택자 부정필터 메소드
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 26 : 선택자의 부정 필터</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    div { width: 60px; height: 60px; margin: 5px; float: left; border: 2px white solid; }
+    </style>
+    <script>
+    $(function(){
+        //버튼을 누르면 div 요소에 배경색을 노랑으로 하고, 선택했던 요소들 중에서 mid 클래스가 존재하지 않은 요소에 대하여는 테두리색을 빨강색으로 변경적용
+        $("button").on("click", function(){
+            $("div").css("background", "yellow").not(".mid").css("border-color","red");
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>선택자 부정필터 메소드 - not()</h1>
+        <article class="data">
+            <button style="clear:both;" id="btn1">버튼</button>
+            <div id="first"></div>	
+            <div id="second" class="mid"></div>
+            <div id="third"  class="mid"></div>
+            <div id="fourth"  class="mid"></div>
+            <div id="fifth"  class="mid"></div>
+            <div id="sixth"></div>
+        </article>
+    </section><br><hr><br>
+</body>
+</html>
+```
+
+### jQuery 선택자 범위적용 메소드
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 27 : 선택자의 범위</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    div { width: 60px; height: 60px; margin: 5px; float: left; border: 2px black solid; }
+    </style>
+    <script>
+    $(function(){
+        //버튼을 누르면
+        //div 엘리먼트 중에서 2 이상 4미만, 인덱스가 0부터 시작하기에 세번째, 네번째 엘리먼트만 배경색 빨강
+        //인덱스가 5이후인 요소는 배경색 초록으로 적용 - slice(begin, end) : begin포함, end미포함 - end 값은 생략가능
+        $("button").click(function(){
+            var div = $(".data > div");
+            div.slice(2, 4).css("background", "red");
+            div.slice(5).css("background","green");
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>선택자 범위 메소드 - slice()</h1>
+        <article class="data">
+            <div></div>	<div></div>	<div></div>	<div></div>
+            <div></div>	<div></div>	<div></div>	<div></div>	
+            <button>색 입히기</button>
+        </article>
+    </section><br><hr><br>
+</body>
+</html>
+```
+
+### jQuery 선택자 next/prev 적용 메소드
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 28 : 선택자의 다음/이전 요소</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    div, span { display:block; width: 60px; height: 60px; margin: 5px; float: left; border: 2px black solid; }
+    .after { background: pink; } 
+    .sel {border: 5px blue solid;}
+    </style>
+    <script>
+    $(function(){
+        //버튼을 누르면
+        //눌려진 버튼의 다음에 위치한 div 엘리먼트에 배경색을 노랑으로 
+        //눌려진 버튼의 이전에 위치한 div 엘리먼트에 배경색을 빨강으로 설정
+        //div의 다음 요소에 after 클래스를 적용
+        //div의 다음 요소들 중에서 middle 클래스가 있는 요소에 클래스 sel을 적용
+        //div의 이전 요소가 span이면, 글자색을 오렌지색으로 설정
+        //div의 이전 요소들 모두를 안여백(padding)값 25px로 설정
+        $("button").click(function(){
+            $(this).next("div").css("background", "yellow");
+            $(this).prev("div").css("background","red");
+            $("div").next().addClass("after");
+            $("div").nextAll(".middle").addClass("sel");
+            $("div").prev("span").css("color", "orange");
+            $("div").prevAll().css("padding","25px");
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>선택자 다음/이전 요소 선택 메소드 - next(), prev()</h1>
+        <article class="data">
+            <button> 바로 아래 형제 엘리먼트에 스타일 입히기1</button>
+            <div id="first">first</div>	
+            <span id="second" class="middle">
+                sibling1		<div id="child">child</div>
+            </span>
+            <div id="third"  class="middle">sibling2</div>
+            <span id="fourth"  class="middle">sibling3</span>
+            <span id="fifth"  class="middle">sibling4</span>
+            <div id="sixth">last</div>  
+            <button> 바로 위 형제 엘리먼트에 스타일 입히기1</button>
+        </article>
+    </section><br><hr><br>
+</body>
+</html>
+```
+
+### jQuery 선택자 자식 적용 메소드
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 29 : 선택자의 자식 요소</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    div, span { display:block; width: 60px; height: 60px; margin: 5px; float: left; border: 2px black solid; }
+    .after { background: pink; } 
+    .sel {border: 5px blue solid;}
+    </style>
+    <script>
+    $(function(){
+        //아이디가 btn1인 버튼을 누르면
+        //div 요소에 아래 테두리선 3px solid red를 적용하고, 그 자식요소 중에서 span 요소의 글자크기를 3배 크게 적용
+        //div 요소에 배경색 핑크로 하고, 그 자식요소 중에서 .sel 인 요소의 글자색을 빨강색으로 설정
+        //아이디가 btn2인 버튼을 누르면 div의 내용 중에서 span 요소를 제거
+        $("#btn1").click(function(){
+            $("div").css("border-bottom", "3px solid red").children("span").css("font-size", "3em");
+            $("div").css("background-color", "pink").children(".sel").css("color", "red");
+        });
+        $("#btn2").click(function(){
+            $("div").contents().remove("span");
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>선택자 자식 요소 선택 메소드 - children(), contents()</h1>
+        <article class="data">
+            <button id="btn1"> 엘리먼트에 스타일 입히기</button>
+            <button id="btn2"> 엘리먼트에 제거하기</button>
+            <p> 이곳은 문장입니다. </p>
+            <div><span class="sel"> 이곳은 div의 차일드 span 이다.</span></div>
+            <p>그리고 <span> 여기는 또 다른 </span> 문장<span>입니</span>이다.</p>
+            <div> 그리고 마지막으로 
+               <span> 이곳은  div의 차일드 span 이고</span>이곳은 div이다. 
+            </div>
+        </article>
+    </section><br><hr><br>
+</body>
+</html>
+```
+
+### jQuery 선택자 형제 적용 메소드
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 28 : 선택자의 다음/이전 요소</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    ul { float:left; margin:5px; font-size:16px; font-weight:bold; } 
+    p { color:blue; margin:10px 20px; font-size:16px; padding:5px;    font-weight:bolder; } 
+   .yw { background:yellow; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //클래스가 yw인 요소의 글자색을 짙은 하늘색으로 설정하고, 그 형제들의 글자색은 빨강으로 하며, 그 형제들의 개수를 구하여 p요소의 내부 요소인 u 요소의 텍스트로 출력하라.
+        var len = $(".yw").css("color","deepskyblue").siblings().css("color","red").length;
+        $("p u").text(len);
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>선택자 형제 요소 선택 메소드 - siblings()</h1>
+        <article class="data">
+            <ul>
+                <li>One</li>    <li>Two</li>    <li class="yw">Three</li> 
+                   <li>Four</li>
+            </ul>
+            <ul>
+                <li>Five</li>    <li>Six</li>    <li>Seven</li>
+            </ul>
+            <ul>
+                <li>Eight</li>    <li class="yw">Nine</li>    <li>Ten</li>  
+                <li>Eleven</li>
+            </ul>
+            <p>    찾은 형제 엘리먼트의 개수: <u></u>개  </p>
+        </article>
+    </section><br><hr><br>
+</body>
+</html>
+```
+
+### jQuery 선택자 부모/조상 적용 메소드
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 29 : 선택자의 부모/조상 요소</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //문서가 로딩되면, b 요소의 조상에 해당하는 요소의 태그들을 모두 배열로 저장한 후 b 요소의 자식요소로 추가하여 설정
+        var res1 = new Array();
+        $("b").parents().each(function(i){
+            res1[i] = this.tagName;
+        });
+        $("b").append(res1.reverse().join(", "));
+        //문서가 로딩되면, u 요소의 부모에 해당하는 요소에 글자색을 빨강으로 하고, 부모에 해당하는 태그를 u 요소의 자식요소로 추가하시오.
+        var res2 = new Array();
+        $("u").parent().css("color", "red").each(function(i){
+            res2[i] = this.tagName;
+        });
+        $("u").append(res2.join(", "));
+    });    
+    </script>
+</head>
+<body>
+    <header id="hd">헤더구역</header>
+    <section class="container">
+        <h1>선택자 부모/조상 선택 메소드 - parent(), parents()</h1>
+        <article class="data">
+            <p>
+                <span> 여기는 <b> 부모/조상 엘리먼트 모두 검색 : </b> </span>
+            </p>
+            <div>
+                <span> 여기는 <u> 부모 엘리먼트만 검색 : </u> </span>
+            </div>
+        </article>
+    </section><br><hr><br>
+    <footer id="ft">푸터 구역</footer>
+</body>
+</html>
+```
+
+### jQuery 선택자 후손 적용 메소드
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 28 : 선택자의 후손 요소</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //p 요소를 클릭하면, 클릭된 요소 후손 중에서 em 요소에 대한 글자색을 빨강으로 하고, 배경색은 핑크색으로 설정
+        $("p").click(function(){
+            $(this).find("em").css({"color":"red", "background-color":"pink"});
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>선택자 후손 요소 선택 메소드 - find()</h1>
+        <article class="data">
+            <div> p 엘리먼트 중에서 <em> 이태릭 단어의 </em>  </div> 
+            <p> 글자 <b> <em>색</em> </b> 을 <em> 빨간색으로 </em>변경한다.</p> 
+            <p> 글자 <strong> <em>색</em> </strong> 을 <em> 빨간색으로 </em>변경한다.</p>
+        </article>
+    </section><br><hr><br>
+</body>
+</html>
+```
+
+
 <br><hr><br>
 
 ## jQuery 조작(Manipulation) 메소드

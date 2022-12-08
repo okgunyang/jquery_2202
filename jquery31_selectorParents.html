@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 29 : 선택자의 부모/조상 요소</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //문서가 로딩되면, b 요소의 조상에 해당하는 요소의 태그들을 모두 배열로 저장한 후 b 요소의 자식요소로 추가하여 설정
+        var res1 = new Array();
+        $("b").parents().each(function(i){
+            res1[i] = this.tagName;
+        });
+        $("b").append(res1.reverse().join(", "));
+        //문서가 로딩되면, u 요소의 부모에 해당하는 요소에 글자색을 빨강으로 하시오.
+        var res2 = new Array();
+        $("u").parent().css("color", "red").each(function(i){
+            res2[i] = this.tagName;
+        });
+        $("u").append(res2.join(", "));
+    });    
+    </script>
+</head>
+<body>
+    <header id="hd">헤더구역</header>
+    <section class="container">
+        <h1>선택자 부모/조상 선택 메소드 - parent(), parents()</h1>
+        <article class="data">
+            <p>
+                <span> 여기는 <b> 부모/조상 엘리먼트 모두 검색 : </b> </span>
+            </p>
+            <div>
+                <span> 여기는 <u> 부모 엘리먼트만 검색 : </u> </span>
+            </div>
+        </article>
+    </section><br><hr><br>
+    <footer id="ft">푸터 구역</footer>
+</body>
+</html>

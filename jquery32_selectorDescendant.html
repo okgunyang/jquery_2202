@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 28 : 선택자의 후손 요소</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //p 요소를 클릭하면, 클릭된 요소 후손 중에서 em 요소에 대한 글자색을 빨강으로 하고, 배경색은 핑크색으로 설정
+        $("p").click(function(){
+            $(this).find("em").css({"color":"red", "background-color":"pink"});
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>선택자 후손 요소 선택 메소드 - find()</h1>
+        <article class="data">
+            <div> p 엘리먼트 중에서 <em> 이태릭 단어의 </em>  </div> 
+            <p> 글자 <b> <em>색</em> </b> 을 <em> 빨간색으로 </em>변경한다.</p> 
+            <p> 글자 <strong> <em>색</em> </strong> 을 <em> 빨간색으로 </em>변경한다.</p>
+        </article>
+    </section><br><hr><br>
+</body>
+</html>

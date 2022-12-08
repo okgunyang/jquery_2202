@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 28 : 선택자의 다음/이전 요소</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    ul { float:left; margin:5px; font-size:16px; font-weight:bold; } 
+    p { color:blue; margin:10px 20px; font-size:16px; padding:5px;    font-weight:bolder; } 
+   .yw { background:yellow; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //클래스가 yw인 요소의 글자색을 짙은 하늘색으로 설정하고, 그 형제들의 글자색은 빨강으로 하며, 그 형제들의 개수를 구하여 p요소의 내부 요소인 u 요소의 텍스트로 출력하라.
+        var len = $(".yw").css("color","deepskyblue").siblings().css("color","red").length;
+        $("p u").text(len);
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>선택자 형제 요소 선택 메소드 - siblings()</h1>
+        <article class="data">
+            <ul>
+                <li>One</li>    <li>Two</li>    <li class="yw">Three</li> 
+                   <li>Four</li>
+            </ul>
+            <ul>
+                <li>Five</li>    <li>Six</li>    <li>Seven</li>
+            </ul>
+            <ul>
+                <li>Eight</li>    <li class="yw">Nine</li>    <li>Ten</li>  
+                <li>Eleven</li>
+            </ul>
+            <p>    찾은 형제 엘리먼트의 개수: <u></u>개  </p>
+        </article>
+    </section><br><hr><br>
+</body>
+</html>

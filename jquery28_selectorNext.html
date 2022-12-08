@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 28 : 선택자의 다음/이전 요소</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    div, span { display:block; width: 60px; height: 60px; margin: 5px; float: left; border: 2px black solid; }
+    .after { background: pink; } 
+    .sel {border: 5px blue solid;}
+    </style>
+    <script>
+    $(function(){
+        //버튼을 누르면
+        //눌려진 버튼의 다음에 위치한 div 엘리먼트에 배경색을 노랑으로 
+        //눌려진 버튼의 이전에 위치한 div 엘리먼트에 배경색을 빨강으로 설정
+        //div의 다음 요소에 after 클래스를 적용
+        //div의 다음 요소들 중에서 middle 클래스가 있는 요소에 클래스 sel을 적용
+        //div의 이전 요소가 span이면, 글자색을 오렌지색으로 설정
+        //div의 이전 요소들 모두를 안여백(padding)값 25px로 설정
+        $("button").click(function(){
+            $(this).next("div").css("background", "yellow");
+            $(this).prev("div").css("background","red");
+            $("div").next().addClass("after");
+            $("div").nextAll(".middle").addClass("sel");
+            $("div").prev("span").css("color", "orange");
+            $("div").prevAll().css("padding","25px");
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>선택자 다음/이전 요소 선택 메소드 - next(), prev()</h1>
+        <article class="data">
+            <button> 바로 아래 형제 엘리먼트에 스타일 입히기1</button>
+            <div id="first">first</div>	
+            <span id="second" class="middle">
+                sibling1		<div id="child">child</div>
+            </span>
+            <div id="third"  class="middle">sibling2</div>
+            <span id="fourth"  class="middle">sibling3</span>
+            <span id="fifth"  class="middle">sibling4</span>
+            <div id="sixth">last</div>  
+            <button> 바로 위 형제 엘리먼트에 스타일 입히기1</button>
+        </article>
+    </section><br><hr><br>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 27 : 선택자의 범위</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    div { width: 60px; height: 60px; margin: 5px; float: left; border: 2px black solid; }
+    </style>
+    <script>
+    $(function(){
+        //버튼을 누르면
+        //div 엘리먼트 중에서 2 이상 4미만, 인덱스가 0부터 시작하기에 세번째, 네번째 엘리먼트만 배경색 빨강
+        //인덱스가 5이후인 요소는 배경색 초록으로 적용 - slice(begin, end) : begin포함, end미포함 - end 값은 생략가능
+        $("button").click(function(){
+            var div = $(".data > div");
+            div.slice(2, 4).css("background", "red");
+            div.slice(5).css("background","green");
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>선택자 범위 메소드 - slice()</h1>
+        <article class="data">
+            <div></div>	<div></div>	<div></div>	<div></div>
+            <div></div>	<div></div>	<div></div>	<div></div>	
+            <button>색 입히기</button>
+        </article>
+    </section><br><hr><br>
+</body>
+</html>

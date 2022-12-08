@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 29 : 선택자의 자식 요소</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    div, span { display:block; width: 60px; height: 60px; margin: 5px; float: left; border: 2px black solid; }
+    .after { background: pink; }  .sel {border: 5px blue solid;}
+    </style>
+    <script>
+    $(function(){
+        //아이디가 btn1인 버튼을 누르면
+        //div 요소에 아래 테두리선 3px solid red를 적용하고, 그 자식요소 중에서 span 요소의 글자크기를 3배 크게 적용
+        //div 요소에 배경색 핑크로 하고, 그 자식요소 중에서 .sel 인 요소의 글자색을 빨강색으로 설정
+        //아이디가 btn2인 버튼을 누르면 div의 내용 중에서 span 요소를 제거
+        $("#btn1").click(function(){
+            $("div").css("border-bottom", "3px solid red").children("span").css("font-size", "3em");
+            $("div").css("background-color", "pink").children(".sel").css("color", "red");
+        });
+        $("#btn2").click(function(){
+            $("div").contents().remove("span");
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>선택자 자식 요소 선택 메소드 - children(), contents()</h1>
+        <article class="data">
+            <button id="btn1"> 엘리먼트에 스타일 입히기</button>
+            <button id="btn2"> 엘리먼트에 제거하기</button>
+            <p> 이곳은 문장입니다. </p>
+            <div><span class="sel"> 이곳은 div의 차일드 span 이다.</span></div>
+            <p>그리고 <span> 여기는 또 다른 </span> 문장<span>입니</span>이다.</p>
+            <div> 그리고 마지막으로 
+               <span> 이곳은  div의 차일드 span 이고</span>이곳은 div이다. 
+            </div>
+        </article>
+    </section><br><hr><br>
+</body>
+</html>

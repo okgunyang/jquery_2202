@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 26 : 선택자의 부정 필터</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    div { width: 60px; height: 60px; margin: 5px; float: left; border: 2px white solid; }
+    </style>
+    <script>
+    $(function(){
+        //버튼을 누르면 div 요소에 배경색을 노랑으로 하고, 선택했던 요소들 중에서 mid 클래스가 존재하지 않은 요소에 대하여는 테두리색을 빨강색으로 변경적용
+        $("button").on("click", function(){
+            $("div").css("background", "yellow").not(".mid").css("border-color","red");
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>선택자 부정필터 메소드 - not()</h1>
+        <article class="data">
+            <button style="clear:both;" id="btn1">버튼</button>
+            <div id="first"></div>	
+            <div id="second" class="mid"></div>
+            <div id="third"  class="mid"></div>
+            <div id="fourth"  class="mid"></div>
+            <div id="fifth"  class="mid"></div>
+            <div id="sixth"></div>
+        </article>
+    </section><br><hr><br>
+</body>
+</html>
