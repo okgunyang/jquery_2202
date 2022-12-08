@@ -1634,3 +1634,89 @@ jQuery에 선택자로 원하는 요소를 선택하지 못하는 경우 선택�
 | event.preventDefault() | 모든 이벤트 발생을 방지할 경우 활용 |
 
 <br><hr><br>
+
+## jQuery 효과(Effect) 메소드
+| 메소드 문법 | 설명 |
+|--------------------------------------|------------------------------|
+| animate() | animate("적용할내용", 실행시간, [function(){}]) | 적용할 내용을 주어진 실행시간 동안 애니메이션하는 메소드로 <br>만약, function 이 추가되면, 애니메이션 후에 그 내용이 추가로 진행된다. |
+| clearQueue() | 현재 진행중이거나 진행할 애니메이션이 제거됨 |
+| delay(지연시간) | 현재 진행할 애니메이션의 동작 지연시간을 지정 |
+| finish() | 애니메이션을 종료하면서 원래 적용되는 애니메이션의 최종상태로 곧바로 변경됨  |
+| stop([true|false], [true|false]) | 첫 번째 옵션은 현재 작동 중인 애니메이션이며, <br>두 번째 옵션은 큐에 저장되어 미래에 작동할 애니메이션을 말하며,<br>true이면, 정지기능이 활성화되고, false이면, 정지기능이 비활성화됨 |
+| queue([function(){}]) | 앞으로 진행할 애니메이션의 내용을 큐에 저장 |
+| dequeue([function(){}]) | 앞으로 진행할 애니메이션의 내용을 큐에서 제거 |
+| show(실행시간, [function(){}]) | 가로 세로 크기가 커지면서 나타나는 애니메이션 적용 |
+| hide(실행시간, [function(){}]) | 가로 세로 크기가 작아지면서 사라지는 애니메이션 적용 |
+| toggle(실행시간, [function(){}]) | show와 hide 애니메이션을 교대로 수행하는 애니메이션 적용 |
+| fadeIn(실행시간, [function(){}]) | 페이드 효과를 진행하면서 서서히 나타나는 애니메이션 적용 |
+| fadeOut(실행시간, [function(){}]) | 페이드 효과를 진행하면서 서서히 사라지는 애니메이션 적용 |
+| fadeToggle(실행시간, [function(){}]) | 페이드 인 과 페이드 아웃 효과를 교대로 작동하는 애니메이션 적용 |
+| fadeTo(실행시간, 불투명도, [function(){}]) | 불투명도 애니메이션을 적용하는 메소드로 점 점 흐려지거나 점 점 선명하게 나타내는 애니메이션에 적용 |
+| slideDown(실행시간, [function(){}]) | 아래로 펼쳐지면서 나타나는 애니메이션 적용 |
+| slideUp(실행시간, [function(){}]) | 위로 접히면서 사라지는 애니메이션 적용 |
+| slideToggle(실행시간, [function(){}]) | slideDown과 slideUp 애니메이션을 교대로 적용 |
+※ effect 관련 메소드의 실행시간은 fast, slow와 같은 키워드로도 가능하지만, 보통 ms단위의 숫자만 기재하는 것이 보통임.
+※ effect 관련 메소드의 실행시간이 있는 메소드는 easing 속성을 지정할 수 있으며, easing는 가속 또는 감속 효과를 나타냄
+
+
+<br><hr><br>
+
+## jQuery 유틸리티(Utility) 메소드
+| 메소드 문법 | 설명 |
+|--------------------------------------|------------------------------|
+| jQuery.contains("선택자", "조상선택자") | 해당 선택된 요소가 조상선택자에 속하는지 여부 반환 |
+| jQuery.data("선택자", "키", "값") | 해당 선택된 요소에 해당 키(필드)에 값을 바운딩시킴 |
+| jQuery.dequeue("선택자",[큐이름]) | 해당 선택자가 큐에 있으면, 실행시킴 |
+| jQuery.each("배열 또는 객체", function(){}) | 지정된 배열 또는 객체의 요소의 개수 만큼 반복실행 |
+| jQuery.extends("배열 또는 객체1", "배열 또는 객체2") | 배열 또는 객체1에 배열 또는 객체2를 확장시켜 객체 합치기 |
+| jQuery.grep("배열", function(){}) | 배열 요소에서 function의 비교구문에 해당하는 요소를 반환 |
+| jQuery.inArray(찾을값, 배열) | 배열 요소에서 찾고자 하는 값에 해당하는 인덱스를 반환 |
+| jQuery.isArray(객체명) | 지정된 객체명이 배열객체인지 여부를 반환 |
+| jQuery.isEmptyObject(객체명) | 지정된 객체가 비어 있는지 여부를 반환 |
+| jQuery.isFunction(메소드명) | 지정된 메소드가 존재하는지 여부를 반환 |
+| jQuery.isNumeric(변수명) | 지정된 변수명이 값이 수치인지 여부를 반환 |
+| jQuery.isPlainObject(객체명) | 지정된 객체가 {}의 구성원이 있는 일반객체인지 여부를 반환 |
+| jQuery.isWindow(객체명) | 지정된 객체가 window 객체인지 여부를 반환 |
+| jQuery.isXMLDoc(문서명) | 지정된 문서가 XML 문서인지 여부를 반환 |
+| jQuery.makeArray(객체명) | 지정된 객체를 배열로 변환 |
+| jQuery.map(배열객체, function(value, index){}) | 지정된 배열객체를 순회 |
+| jQuery.merge(배열1,배열2) | 두 개의 배열을 합쳐 반환 |
+| jQuery.noop() | 함수에 내용을 비우기 |
+| jQuery.now() | 현재 날짜와 시간을 반환 |
+| jQuery.parseHTML(데이터) | 해당 문자열 데이터를 태그로 파싱 |
+| jQuery.parseJSON(객체) | 해당 객체를 JSON 객체로 파싱 |
+| jQuery.parseXML(데이터) | 해당 데이터를 XML 형태로 파싱 |
+| jQuery.trim(문자열) | 해당 문자열의 앞/뒤 공백문자를 제거 |
+| jQuery.type(객체명) | 해당 객체의 타입을 반환 |
+| jQuery.unique(배열명) | 해당 배열의 중복을 제거하고 반환 |
+| jQuery.uniqueSort(배열명) | 해당 배열의 중복을 제거하고, 소트하여 반환 |
+※ "jQuery." 으로 시작하는 메소드는 "$." 으로도 쓸 수 있음
+
+
+<br><hr><br>
+
+## jQuery 비동기(Ajax) 방식
+| 메소드 문법 | 설명 |
+|--------------------------------------|------------------------------|
+| .ajaxComplete() | Ajax 요청 완료 시 호출할 핸들러를 지정 |
+| .ajaxError() | Ajax 요청이 오류와 함께 완료될 때 호출할 핸들러를 지정 |
+| .ajaxSend() | Ajax 요청이 전송되기 전에 실행할 함수를 지정 |
+| .ajaxStart() | 첫 번째 Ajax 요청이 시작될 때 호출할 핸들러를 지정 |
+| .ajaxStop() | 모든 Ajax 요청이 완료되었을 때 호출할 핸들러를 지정 |
+| .ajaxSuccess() | Ajax 요청이 성공적으로 완료될 때마다 실행할 함수를 지정 |
+| jQuery.ajax() | ajax 기능을 수행 |
+| jQuery.ajaxPrefilter() | ajax 기능이 수행되기 전에 처리할 내용 지정 |
+| jQuery.ajaxSetup() | ajax 처리에 앞서 기본값을 설정 |
+| jQuery.ajaxTransport() | ajax 처리시에 데이터를 전송할 객체를 생성 |
+| jQuery.get() | GET 요청 방식으로 서버에서 데이터를 로딩 |
+| jQuery.getJSON() | GET 요청 방식으로 서버에서 데이터를 받아 JSON 으로 인코딩 |
+| jQuery.getScript() | GET 요청 방식으로 서버에서 데이터를 받아 Javascript 파일로 로딩 |
+| jQuery.param() | URL 쿼리 스트링이나 Ajax 요청에 사용하기에 적합한 배열, 일반 객체 또는 jQuery 객체로 변환 |
+| jQuery.post() | POST 요청 방식으로 서버에서 데이터를 로딩 |
+| .load() | 서버에서 데이터를 로드하고 반환된 HTML을 일치하는 요소에 배치 |
+| .serialize() | 폼 요소의 데이터를 그룹화하여 전송 적합한 문자열로 인코딩 |
+| .serializeArray() | 폼 요소의 데이터를 전송 적합한 배열로 인코딩 |
+※ "jQuery." 으로 시작하는 메소드는 "$." 으로도 쓸 수 있음
+
+<br><hr><br>
+
