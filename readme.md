@@ -1580,6 +1580,363 @@ jQuery에 선택자로 원하는 요소를 선택하지 못하는 경우 선택�
 | $("선택자").scrollLeft() | 선택자로 선택한 요소의 가로 방향으로 스크롤된양을 가져옴 |
 | $("선택자").scrollTop() | 선택자로 선택한 요소의 세로 방향으로 스크롤된양을 가져옴 |
 
+
+### jQuery 자식 요소 추가하기
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 33 : 자식 엘리먼트 추가하기</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    div { float:left; width:50%; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //추가할 도시명
+        var cities = ["파주","고양","김포","의정부","화성","안산","세종"]
+        //추가할 카드명
+        var cards = ["뮤츠","리자몽","레쿠쟈","아르세우스","펄기아","디아루가"]
+        //문서가 로딩되면, 내가 살고 싶은 도시를 아이디가 cities_list에 추가 될 수 있도록 함
+        $(cities).each(function(index, value){
+            //$("#cities_list").append("<li>"+value+"</li>");
+            $("<li>"+value+"</li>").appendTo($("#cities_list"));
+        });
+        //$("#cities_list").append($("#data1"));
+        //문서가 로딩되면, 내가 갖고 싶은 카드를 아이디가 card_list에 추가 될 수 있도로 함
+        $.each(cards, function(index, value){
+            //$("#card_list").prepend("<li>"+value+"</li>");
+            $("<li>"+value+"</li>").prependTo($("#card_list"));
+        });
+        //$("#card_list").prepend($("#data1"));
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>자식 추가 메소드 - append(), appendTo(), prepend(), prependTo()</h1>
+        <article class="data">
+            <div>  <b> 내가 살고 싶은 도시 </b>  <ul id="cities_list"></ul> </div> 
+            <div>  <b> 내가 갖고 싶은 카드  </b>  <ul id="card_list"></ul> </div> 
+        </article>
+    </section><br><hr><br>
+    <article id="data1">데이터1</article>
+</body>
+</html>
+```
+
+### jQuery 형제 요소 추가하기
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 34 : 형제 엘리먼트 추가하기</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //문서가 로딩되면, <div class="container">니가 좋아하는 사람 : 김○태</div> 요소를 header의 이후(동생=next) 요소로 추가
+        //$("header").after("<div class='container'>니가 좋아하는 사람 : 김○태</div>");
+        $("<div class='container'>니가 좋아하는 사람 : 김○태</div>").insertAfter($("header"));
+        //$("header").after($("#data1"));
+        //문서가 로딩되면, <div class="container">니가 좋아하는 사람 : 김기○</div> 요소를 footer의 이전(형=prev) 요소로 추가
+        //$("footer").before("<div class='container'>니가 좋아하는 사람 : 김기○</div>");
+        $("<div class='container'>니가 좋아하는 사람 : 김기○</div>").insertBefore($("footer"));
+    });    
+    </script>
+</head>
+<body>
+    <header> <h1> 오늘은 불금~! 함께 공부할 </h1></header>
+    <section class="container">
+        <h1>형제 추가 메소드 - before(), insertBefore(), after(), insertAfter()</h1>
+    </section><br><hr><br>
+    <article id="data1">데이터1</article>
+    <footer> <h3> <em> copyright kkt </em> </h3> </footer>
+</body>
+</html>
+```
+
+### jQuery 부모 요소 추가하기
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 35 : 부모 엘리먼트 추가하기</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    .border { border: 2px solid red; margin:10px; padding:0px 30px;
+	float :left; width: 60px; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //p요소를 클릭하면, <div class='border'>불금 퐈이팅~!</div> 을 각 각의 p요소의 부모요소로 추가
+        $("p").click(function(){
+            $("p").wrap("<div class='border'>불금 퐈이팅~!</div>");
+            //$("p").wrapAll("<div class='border'>불금 퐈이팅~!</div>");
+        });        //$("p").wrap($(".indata1"));
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>부모 요소 추가 메소드 - wrap(), wrapAll()</h1>
+        <article class="data">
+            <h2>jQuery After Third part -> 312</h2>
+            <p>React -> 37</p>
+            <div>		<p>VUE.js -> 1</p>	</div>
+            <p>angular -> 54</p>
+            <p>polymer -> 3</p>
+        </article>
+    </section><br><hr><br>
+    <div class="indata1">데이터1</div>
+</body>
+</html>
+```
+
+### jQuery 엘리먼트 변경하기
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 36 : 엘리먼트 변경하기</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    .bd { border: 2px solid red;  }
+    .box { border:2px dashed blue; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //.box요소를 클릭하면, 클릭된 요소를 "<h1 class='bd'>Replace Text1</h1>"로 변경
+        $(".box").click(function(){
+            $(this).replaceWith("<h1 class='bd'>Replace Text1</h1>");
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>엘리먼트 변경 메소드 - replaceWith()</h1>
+        <article class="data">
+            <div class="box one">Youngeun's</div>
+            <div class="box two">jQuery</div>
+            <div class="box three">Mobile</div>
+            <div class="box four">Story</div>
+        </article>
+    </section><br><hr><br>
+    <div class="indata1">데이터1</div>
+</body>
+</html>
+```
+
+### jQuery 엘리먼트 비우기 및 제거하기
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 37 : 엘리먼트 비우기 및 제거하기</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    .bd { border: 2px solid red;  }
+    .box { border:2px dashed blue; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //아이디가 btn1인 요소를 클릭하면, p요소의 내용을 비운다.
+        $("#btn1").click(function(){
+            $("p").empty();
+        });
+        //아이디가 btn2인 요소를 클릭하면, li요소 중에서 비어 있는 요소를 제거한다.
+        $("#btn2").click(function(){
+            $("li:empty").remove();
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>엘리먼트 비우기 및 제거 메소드 - empty(), remove()</h1>
+        <article class="data">
+            <button id="btn1"> 엘리먼트 비우기 </button> 
+            <button id="btn2"> 엘리먼트 지우기 </button> 
+            <div>	
+                <p>Kitea's</p>	jQuery
+            </div>
+            <p> <span> Mobile </span> </p>
+            <p>Story</p>
+            <ul>
+                <li>데이터1</li><li></li><li>데이터3</li><li>데이터4</li>
+            </ul>
+        </article>
+    </section><br><hr><br>
+    <div class="indata1">데이터1</div>
+</body>
+</html>
+```
+
+### jQuery 엘리먼트 복제하기
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 38 : 엘리먼트 복제하기</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //button 요소를 클릭하면, strong요소를 span 요소에 자식으로 추가하고,
+        //em 요소를 복제하여 span 요소에 자식으로 추가
+        $("button").click(function(){
+            $("strong").appendTo($("span"));
+            $("em").clone().appendTo($("span"));
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>엘리먼트 복제 메소드 - clone()</h1>
+        <article class="data">
+            <button>복제</button>   
+            <strong> 김 </strong>
+            <em> 기태 </em>
+            <span> 세상에서 제일 좋아하는 사람 : </span>
+            <span> 세상에서 제일 미워할 수 없는 사람 : </span>
+        </article>
+    </section><br><hr><br>
+    <div class="indata1">데이터1</div>
+</body>
+</html>
+```
+
+### jQuery 엘리먼트 크기 구하기 및 설정
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 39 : 엘리먼트 크기 구하기 및 설정과 위치</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; position:relative; }
+    .data:after { content:""; display:block; clear:both; }
+    div.abs { width: 150px; height: 60px; position: absolute;
+     left:220px; top:35px; background-color: green; 
+     cursor: pointer; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //.abs 요소를 클릭하면, 클릭된 요소의 가로 위치, 세로 위치, 폭, 높이를 
+        //아이디가 result인 곳에 출력
+        $(".abs").click(function(){
+            var $obj = $(this).offset();    //left, top
+            $("#result").text(this.tagName + "  coords("+$obj.left+", "+$obj.top+"), width:"+$(this).width()+", height:"+$(this).height());
+        });
+        $(".indata1").click(function(){
+            $("#result").empty();
+            $(".abs").width($(".abs").width()*2);
+            $(".abs").height($(".abs").height()*2);
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>엘리먼트 위치 및 크기 메소드 - offset(), width(), height()</h1>
+        <article class="data">
+            <div id="result"></div>  <div class="abs"></div>
+        </article>
+    </section><br><hr><br><div class="indata1">초기화</div>
+</body>
+</html>
+```
+
+### jQuery 엘리먼트 마진을 포함한 크기 설정
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 40 : 엘리먼트 마진을 포함한 크기</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    p { width:200px; height:60px;  margin:20px; text-align:center;
+   background:red; cursor:pointer; color:#fff; line-height:60px; } 
+    </style>
+    <script>
+    $(document).ready(function(){
+        //문서가 로딩되면, 첫 p요소의 너비와 마진을 포함한 너비를 구하여 아이디가 res1인 곳에 출력하고, 높이와 마진을 포함한 높이를 구하여 아이디가 res2인 곳에 출력
+        var p = $("p:first");
+        $("#res1").text("width Size : "+p.outerWidth()+", Margin Include Size : "+p.outerWidth(true));
+        $("#res2").text("height Size : "+p.outerHeight()+", Margin Include Size : "+p.outerHeight(true));
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>엘리먼트의 마진을 포함한 크기 - outerWidth(), outerHeight()</h1>
+        <article class="data">
+            <p>Hello~! KimGiTae</p>
+            <div id="res1"></div>  <div id="res2"></div>
+        </article>
+    </section><br><hr><br>
+</body>
+</html>
+```
+
 <br><hr><br>
 
 ## jQuery 이벤트(Event) 메소드와 이벤트 객체
@@ -1655,6 +2012,7 @@ jQuery에 선택자로 원하는 요소를 선택하지 못하는 경우 선택�
 | slideDown(실행시간, [function(){}]) | 아래로 펼쳐지면서 나타나는 애니메이션 적용 |
 | slideUp(실행시간, [function(){}]) | 위로 접히면서 사라지는 애니메이션 적용 |
 | slideToggle(실행시간, [function(){}]) | slideDown과 slideUp 애니메이션을 교대로 적용 |
+
 ※ effect 관련 메소드의 실행시간은 fast, slow와 같은 키워드로도 가능하지만, 보통 ms단위의 숫자만 기재하는 것이 보통임.
 ※ effect 관련 메소드의 실행시간이 있는 메소드는 easing 속성을 지정할 수 있으며, easing는 가속 또는 감속 효과를 나타냄
 
@@ -1690,6 +2048,7 @@ jQuery에 선택자로 원하는 요소를 선택하지 못하는 경우 선택�
 | jQuery.type(객체명) | 해당 객체의 타입을 반환 |
 | jQuery.unique(배열명) | 해당 배열의 중복을 제거하고 반환 |
 | jQuery.uniqueSort(배열명) | 해당 배열의 중복을 제거하고, 소트하여 반환 |
+
 ※ "jQuery." 으로 시작하는 메소드는 "$." 으로도 쓸 수 있음
 
 

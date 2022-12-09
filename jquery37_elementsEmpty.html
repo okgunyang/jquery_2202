@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 37 : 엘리먼트 비우기 및 제거하기</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    .bd { border: 2px solid red;  }
+    .box { border:2px dashed blue; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //아이디가 btn1인 요소를 클릭하면, p요소의 내용을 비운다.
+        $("#btn1").click(function(){
+            $("p").empty();
+        });
+        //아이디가 btn2인 요소를 클릭하면, li요소 중에서 비어 있는 요소를 제거한다.
+        $("#btn2").click(function(){
+            $("li:empty").remove();
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>엘리먼트 비우기 및 제거 메소드 - empty(), remove()</h1>
+        <article class="data">
+            <button id="btn1"> 엘리먼트 비우기 </button> 
+            <button id="btn2"> 엘리먼트 지우기 </button> 
+            <div>	
+                <p>Kitea's</p>	jQuery
+            </div>
+            <p> <span> Mobile </span> </p>
+            <p>Story</p>
+            <ul>
+                <li>데이터1</li><li></li><li>데이터3</li><li>데이터4</li>
+            </ul>
+        </article>
+    </section><br><hr><br>
+    <div class="indata1">데이터1</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 40 : 엘리먼트 마진을 포함한 크기</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    p { width:200px; height:60px;  margin:20px; text-align:center;
+   background:red; cursor:pointer; color:#fff; line-height:60px; } 
+    </style>
+    <script>
+    $(document).ready(function(){
+        //문서가 로딩되면, 첫 p요소의 너비와 마진을 포함한 너비를 구하여 아이디가 res1인 곳에 출력하고, 높이와 마진을 포함한 높이를 구하여 아이디가 res2인 곳에 출력
+        var p = $("p:first");
+        $("#res1").text("width Size : "+p.outerWidth()+", Margin Include Size : "+p.outerWidth(true));
+        $("#res2").text("height Size : "+p.outerHeight()+", Margin Include Size : "+p.outerHeight(true));
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>엘리먼트의 마진을 포함한 크기 - outerWidth(), outerHeight()</h1>
+        <article class="data">
+            <p>Hello~! KimGiTae</p>
+            <div id="res1"></div>  <div id="res2"></div>
+        </article>
+    </section><br><hr><br>
+</body>
+</html>

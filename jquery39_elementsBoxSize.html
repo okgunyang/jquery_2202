@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 39 : 엘리먼트 크기 구하기 및 설정과 위치</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; position:relative; }
+    .data:after { content:""; display:block; clear:both; }
+    div.abs { width: 150px; height: 60px; position: absolute;
+     left:220px; top:35px; background-color: green; 
+     cursor: pointer; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //.abs 요소를 클릭하면, 클릭된 요소의 가로 위치, 세로 위치, 폭, 높이를 
+        //아이디가 result인 곳에 출력
+        $(".abs").click(function(){
+            var $obj = $(this).offset();    //left, top
+            $("#result").text(this.tagName + "  coords("+$obj.left+", "+$obj.top+"), width:"+$(this).width()+", height:"+$(this).height());
+        });
+        $(".indata1").click(function(){
+            $("#result").empty();
+            $(".abs").width($(".abs").width()*2);
+            $(".abs").height($(".abs").height()*2);
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>엘리먼트 위치 및 크기 메소드 - offset(), width(), height()</h1>
+        <article class="data">
+            <div id="result"></div>  <div class="abs"></div>
+        </article>
+    </section><br><hr><br><div class="indata1">초기화</div>
+</body>
+</html>

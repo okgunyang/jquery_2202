@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 33 : 자식 엘리먼트 추가하기</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    div { float:left; width:50%; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //추가할 도시명
+        var cities = ["파주","고양","김포","의정부","화성","안산","세종"]
+        //추가할 카드명
+        var cards = ["뮤츠","리자몽","레쿠쟈","아르세우스","펄기아","디아루가"]
+        //문서가 로딩되면, 내가 살고 싶은 도시를 아이디가 cities_list에 추가 될 수 있도록 함
+        $(cities).each(function(index, value){
+            //$("#cities_list").append("<li>"+value+"</li>");
+            $("<li>"+value+"</li>").appendTo($("#cities_list"));
+        });
+        //$("#cities_list").append($("#data1"));
+        //문서가 로딩되면, 내가 갖고 싶은 카드를 아이디가 card_list에 추가 될 수 있도로 함
+        $.each(cards, function(index, value){
+            //$("#card_list").prepend("<li>"+value+"</li>");
+            $("<li>"+value+"</li>").prependTo($("#card_list"));
+        });
+        //$("#card_list").prepend($("#data1"));
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>자식 추가 메소드 - append(), appendTo(), prepend(), prependTo()</h1>
+        <article class="data">
+            <div>  <b> 내가 살고 싶은 도시 </b>  <ul id="cities_list"></ul> </div> 
+            <div>  <b> 내가 갖고 싶은 카드  </b>  <ul id="card_list"></ul> </div> 
+        </article>
+    </section><br><hr><br>
+    <article id="data1">데이터1</article>
+</body>
+</html>

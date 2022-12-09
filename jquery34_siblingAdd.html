@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 34 : 형제 엘리먼트 추가하기</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //문서가 로딩되면, <div class="container">니가 좋아하는 사람 : 김○태</div> 요소를 header의 이후(동생=next) 요소로 추가
+        //$("header").after("<div class='container'>니가 좋아하는 사람 : 김○태</div>");
+        $("<div class='container'>니가 좋아하는 사람 : 김○태</div>").insertAfter($("header"));
+        //$("header").after($("#data1"));
+        //문서가 로딩되면, <div class="container">니가 좋아하는 사람 : 김기○</div> 요소를 footer의 이전(형=prev) 요소로 추가
+        //$("footer").before("<div class='container'>니가 좋아하는 사람 : 김기○</div>");
+        $("<div class='container'>니가 좋아하는 사람 : 김기○</div>").insertBefore($("footer"));
+    });    
+    </script>
+</head>
+<body>
+    <header> <h1> 오늘은 불금~! 함께 공부할 </h1></header>
+    <section class="container">
+        <h1>형제 추가 메소드 - before(), insertBefore(), after(), insertAfter()</h1>
+    </section><br><hr><br>
+    <article id="data1">데이터1</article>
+    <footer> <h3> <em> copyright kkt </em> </h3> </footer>
+</body>
+</html>
