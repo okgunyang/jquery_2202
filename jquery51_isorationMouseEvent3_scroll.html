@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 51 : 마우스 개별 이벤트3</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    * { margin:0; padding:0; }
+    body, html { width:100%; height:100%; }
+    ul { list-style: none; }
+    a { text-decoration:none; }
+    .container, .page { width:100%; height:100%; }
+    .page { background-repeat:no-repeat; background-size:cover; 
+    background-position: center center; }
+    #page1 { background-image: url("black1.jpg"); }
+    #page2 { background-image: url("black2.jpg");
+     background-attachment:fixed;  }
+    #page3 { background-image: url("black3.jpg"); }
+    #page4 { background-image: url("black4.jpg"); }
+    .boxFrame { width:1000px; margin:0px auto;  padding-top:100px;
+    display:none; }
+    .col { width:300px; float:left; margin:10px; }
+    #gnb { position:fixed; top:0; left:0; z-index:20; width:100%;
+    height:80px; background:rgba(0,0,0,0.8); display:none; }
+    #gnb li { float:left; padding:20px; float:left; }
+    #gnb a { color:#fff; font-weight:bold; }
+    .title1 { color:#fff; text-shadow:1px 1px 10px #222;
+        text-align:center; line-height:250px; font-size:60px; }
+    .comment { position:fixed; left:50%; width:500px; margin-left:-250px; 
+        bottom:150px; z-index:999; box-shadow:0px 0px 10px #fff; color:deepskyblue; }    
+    </style>
+    <script>
+        $(document).ready(function(){
+            var Ht = $(window).height(); //페이지 높이 계산
+            var pageCnt = $(".page").length; //페이지 수 계산
+            $(window).scroll(function(){ //스크롤이 되었을 때
+                var scTop = $(window).scrollTop(); //스크롤된 양 계산
+                //console.log(scTop);
+                if(scTop >= Ht*2){
+                    $(".boxFrame").fadeIn(1500);
+                } else {
+                    $(".boxFrame").fadeOut(1500);
+                }
+                if(scTop >= 100) {
+                    $("#gnb").slideDown(800);
+                } else {
+                    $("#gnb").slideUp(800);
+                }
+            });
+        });
+        </script>
+</head>
+<body>
+    <section class="comment">
+        <h1>마우스 개별 이벤트 메소드2</h1>
+        <div>click, dblclick, mouseover, mouseout, mousedown, mouseup
+            mouseenter, mouseleave, hover, mousemove, contextmenu, wheel 등 이 있다.</div>
+        <article class="data">
+            
+        </article>
+    </section>
+    <nav id="gnb">
+        <ul>
+            <li><a href="">회사소개</a></li>
+            <li><a href="">제품소개</a></li>
+            <li><a href="">서비스</a></li>
+            <li><a href="">고객센터</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <section class="page" id="page1">
+            <h1 class="title1">제목1</h1>
+        </section>
+        <section class="page" id="page2">
+            <h1 class="title1">제목2</h1>
+        </section>
+        <section class="page" id="page3">
+            <div class="boxFrame">
+                <div class="col">
+                    <img src="https://placehold.it/300x200/222/fff" alt="">
+                </div>
+                <div class="col">
+                    <img src="https://placehold.it/300x200/222/fff" alt="">
+                </div>
+                <div class="col">
+                    <img src="https://placehold.it/300x200/222/fff" alt="">
+                </div>
+            </div>
+        </section>
+        <section class="page" id="page4"></section>
+    </div>
+</body>
+</html>

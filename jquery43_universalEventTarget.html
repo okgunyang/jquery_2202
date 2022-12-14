@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 43 : 범용 이벤트 타겟 활용</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    img { display:block; width:50px; height:auto; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //img 요소를 더블클릭할 때마다 이벤트 타켓을 활용하여 callback처리로 이미지를
+        //1.5배씩 커지게 하시오.
+        $("img").bind("dblclick", function(event){
+            var $t = $(event.target);
+            $t.width($t.width()*1.5);
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>범용 이벤트 적용 메소드 - bind(), on()</h1>
+        <article class="data">
+            <img src="dy1.jpg" id="pic1">
+        </article>
+    </section><br><hr><br>
+</body>
+</html>

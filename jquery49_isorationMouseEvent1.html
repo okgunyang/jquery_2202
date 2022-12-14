@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 49 : 마우스 개별 이벤트</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    img { width: 300px; height:auto; border-width:10px; border-style:solid; 
+    border-color:black; transition-duration:0.6s; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //img 요소에서 마우스 왼쪽 버튼을 누르면, 테두리 색이 파랑,
+        //img 요소에서 마우스 왼쪽 버튼을 떼면, 테두리 색이 골드,
+        //img 요소에서 마우스 포인터가 내려 오면, 테두리 색이 검정,
+        //img 요소에서 마우스 포인터가 올라 가면, 테두리 색이 빨강,
+        //img 요소를 클릭하면, 이미지는 1.5배로 커짐
+        //img 요소를 더블클릭하면, 이미지는 1.5배로 작아짐
+        $("img").mousedown(function(){
+            $(this).css("border-color","blue");
+        });
+        $("img").mouseup(function(){
+            $(this).css("border-color","gold");
+        });
+        $("img").mouseout(function(){
+            $(this).css("border-color","black");
+        });
+        $("img").mouseover(function(){
+            $(this).css("border-color","red");
+        });
+        $("img").click(function(){
+            $(this).width($(this).width()*1.5);
+        });
+        $("img").dblclick(function(){
+            $(this).width($(this).width()/1.5);
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>마우스 개별 이벤트 메소드</h1>
+        <p>click, dblclick, mouseover, mouseout, mousedown, mouseup
+            mouseenter, mouseleave, hover, mousemove, contextmenu, wheel 등 이 있다.</p>
+        <article class="data">
+            <img src="dy2.jpg" id="pic1">
+        </article>
+    </section><br><hr><br>
+</body>
+</html>

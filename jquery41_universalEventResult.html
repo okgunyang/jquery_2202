@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 41 : 범용 이벤트 적용 메소드</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    img { display:block; width:500px; height:auto; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //a 태그에 마우스 포인터를 올리면, img 요소에 해당 이미지를 보이도록 하시오. 
+        $("a").on("mouseover", function(){
+            $("img").attr("src", $(this).attr("data-val")).css("display", "none");
+            $("img").delay(500).fadeIn(800);
+        });
+        //on()이나 bind()과 같은 여러 이벤트를 적용할 수 있는 메소드를 범용 이벤트 메소드라고 한다.
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>범용 이벤트 적용 메소드 - bind(), on()</h1>
+        <article class="data">
+            <ul>	
+                <li> <a href="" data-val="img1.jpg"> 사진1 </a> </li>
+                <li> <a href="" data-val="img2.jpg"> 사진2 </a> </li>
+            </ul><img />
+        </article>
+    </section><br><hr><br>
+</body>
+</html>

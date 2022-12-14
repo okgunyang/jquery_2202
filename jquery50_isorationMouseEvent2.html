@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 50 : 마우스 개별 이벤트2</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    img { width: 500px; height:auto; border-width:10px; border-style:solid; 
+    border-color:black; transition-duration:0.6s; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //img 요소에서 마우스 포인터를 움직이면,
+        //브라우저를 기준으로 마우스 포인터의 위치를 x, y 좌표값으로 첫 번째 p요소에 출력
+        //화면을 기준으로 마우스 포인터의 위치를 x, y 좌표값으로 .middle이 적용된 p요소에 출력
+        //페이지를 기준으로 마우스 포인터의 위치를 x, y 좌표값으로 마지막 p요소에 출력
+        $("img").mousemove(function(event){
+            $("p:first").html(event.clientX + ", " + event.clientY);
+            $("p.middle").html(event.screenX + ", " + event.screenY);
+            $("p:last").html(event.pageX + ", " + event.pageY);
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>마우스 개별 이벤트 메소드2</h1>
+        <div>click, dblclick, mouseover, mouseout, mousedown, mouseup
+            mouseenter, mouseleave, hover, mousemove, contextmenu, wheel 등 이 있다.</div>
+        <article class="data">
+            <div><img src="dy2.jpg" id="pic1"></div>
+            <p></p>   <p class="middle"></p>   <p></p>
+        </article>
+    </section><br><hr><br>
+</body>
+</html>
