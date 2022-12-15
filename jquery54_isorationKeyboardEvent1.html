@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 54 : 키보드 관련 이벤트 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    input { display:block; width:900px; height:48px; line-height: 48px; 
+    font-size:30px; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //아이디가 msgBox인 요소에 글자를 입력하면, 입력된 글자수를 카운트하여 80글자를 기준으로 입력가능한(남은) 글자수를 h2요소에 출력하고, 만약, 초과하여 입력하면, msgBox의 글자색은 빨강으로 하고 비활성화되도록 하고, 초과하지 않으면, 파랑으로 글자색을 표시하며, 아이디가 btn1인 요소를 클릭하면, msgBox를 초기화하도록 하시오.
+        $("#msgBox").keyup(function(){
+            var inLength = $(this).val().length;
+            var remain = 80 - inLength;
+            $("h2").html(remain);
+            if(remain >= 0) {
+                $("h2").css("color","blue");
+            } else {
+                $("h2").css("color","red");
+                $(this).css("color","red");
+                $(this).attr("disabled", "true");
+                $("#status").text(Math.abs(remain)+"글자를 초과하였습니다.");
+            }
+        });
+        $("#btn1").click(function(){
+            $("#msgBox").remove();
+            $("h2").after("<textarea id='msgBox' cols='40' rows='8'></textarea>");
+            $("h2").text("80").css("color","black");
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="comment">
+        <h1>키보드 관련 이벤트 메소드 - keyup(), keydown(), keypress()</h1>
+        <article class="data">
+            <div>
+                남은 글자수
+                <h2>80</h2>
+                <textarea id="msgBox" cols="40" rows="8"></textarea>
+            </div>
+            <div id="status"></div><button id="btn1">초기화</button>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>

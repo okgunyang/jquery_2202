@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 52 : 폼 관련 이벤트 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    input { display:block; width:900px; height:48px; line-height: 48px; 
+    font-size:30px; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //문서가 로딩되면, input 요소에 "아이디를 입력하세요"라는 값이 파란색 글자로 입력되도록 하시오.
+        $("input").val("아이디를 입력하세요").css("color","blue");
+        //input 요소가 포커스(커서)를 획득하면, 해당 요소의 값을 비우고 글자색을 검정색으로 하시오.
+        $("input").focus(function(){
+            $(this).val("").css("color", "black");
+        });
+        //input 요소에서 포커스를 잃으면, 해당 요소의 입력된 값을 비교하여, 입력된 값이 없는 경우 "아이디가 입력되지 않았습니다~!"를 빨간색으로 표시하시오.
+        $("input").blur(function(){
+            if($(this).val()=="") {
+                $(this).val("아이디가 입력되지 않았습니다~!").css("color","red");
+            }
+        });
+
+        //아이디가 sel인 요소에서 해당 값을 선택하면, 선택된 사이트의 주소로 새로운 창에 띄우기하시오.
+        $("#sel").change(function(){
+            var hrefUrl = $(this).val();
+            if($(this).val()!="") {
+                window.open(hrefUrl, "new Window");
+            }
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="comment">
+        <h1>폼 관련 이벤트 메소드 - focus(), blur(), change()</h1>
+        <article class="data">
+            <input type="text" id="id">
+        </article>
+        <article class="data">
+            사이트 선택:
+            <select id="sel">
+                <option value="" selected>선택안함</option>
+                <option value="http://www.naver.com">네이버</option>
+                <option value="http://www.daum.net">다음</option>
+                <option value="http://www.google.com">구글</option>
+            </select>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>

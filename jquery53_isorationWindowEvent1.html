@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 53 : 창 관련 이벤트 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    input { display:block; width:900px; height:48px; line-height: 48px; 
+    font-size:30px; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //데스크탑(960이상)일 경우 제목, 설명 등의 글자색은 파랑, 글자크기는 제목 : 48px, 설명 : 20px, 이미지는 dy1.jpg로
+        //태블릿(768~959)일 경우 제목, 설명 등의 글자색은 초록, 글자크기는 제목 : 36px, 설명 : 18px, 이미지는 dy2.jpg로
+        //모바일(~767)일 경우 제목, 설명 등의 글자색은 빨강, 글자크기는 제목 : 24px, 설명 : 14px, 이미지는 dy3.jpg로
+        var wd0 = screen.width;
+        $(window).resize(function(){
+            var wd = $(window).width();
+            if(wd>=960 || wd==wd0){
+                $(".title").css("color", "blue").css("font-size","48px");
+                $(".comment").css("color", "blue").css("font-size","20px");
+                $("img").attr("src","dy1.jpg").width(500);
+            } else if(wd>=768) {
+                $(".title").css("color", "green").css("font-size","36px");
+                $(".comment").css("color", "green").css("font-size","18px");
+                $("img").attr("src","dy2.jpg").width(400);
+            } else {
+                $(".title").css("color", "red").css("font-size","24px");
+                $(".comment").css("color", "red").css("font-size","14px");
+                $("img").attr("src","dy3.jpg").width(200);
+            }
+        }).resize();
+    });
+    </script>
+</head>
+<body>
+    <section class="comment">
+        <h1>창 관련 이벤트 메소드 - resize()</h1>
+        <article class="data">
+            <h2 class="title">제목</h2>
+            <p class="comment">설명</p>
+            <h3>이미지 이름 :</h3>
+            <img src="dy1.jpg" alt="위키미키 도연">
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>

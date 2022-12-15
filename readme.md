@@ -2513,13 +2513,13 @@ jQuery에 선택자로 원하는 요소를 선택하지 못하는 경우 선택�
         <section class="page" id="page3">
             <div class="boxFrame">
                 <div class="col">
-                    <img src="http://placehold.it/300x200/222/fff" alt="">
+                    <img src="https://placeimg.com/300/200/any/grayscale" alt="">
                 </div>
                 <div class="col">
-                    <img src="http://placehold.it/300x200/222/fff" alt="">
+                    <img src="https://placeimg.com/300/200/any/grayscale" alt="">
                 </div>
                 <div class="col">
-                    <img src="http://placehold.it/300x200/222/fff" alt="">
+                    <img src="https://placeimg.com/300/200/any/grayscale" alt="">
                 </div>
             </div>
         </section>
@@ -2529,7 +2529,246 @@ jQuery에 선택자로 원하는 요소를 선택하지 못하는 경우 선택�
 </html>
 ```
 
+### jQuery 폼 관련 이벤트 메소드
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 52 : 폼 관련 이벤트 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    input { display:block; width:900px; height:48px; line-height: 48px; 
+    font-size:30px; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //문서가 로딩되면, input 요소에 "아이디를 입력하세요"라는 값이 파란색 글자로 입력되도록 하시오.
+        $("input").val("아이디를 입력하세요").css("color","blue");
+        //input 요소가 포커스(커서)를 획득하면, 해당 요소의 값을 비우고 글자색을 검정색으로 하시오.
+        $("input").focus(function(){
+            $(this).val("").css("color", "black");
+        });
+        //input 요소에서 포커스를 잃으면, 해당 요소의 입력된 값을 비교하여, 입력된 값이 없는 경우 "아이디가 입력되지 않았습니다~!"를 빨간색으로 표시하시오.
+        $("input").blur(function(){
+            if($(this).val()=="") {
+                $(this).val("아이디가 입력되지 않았습니다~!").css("color","red");
+            }
+        });
+
+        //아이디가 sel인 요소에서 해당 값을 선택하면, 선택된 사이트의 주소로 새로운 창에 띄우기하시오.
+        $("#sel").change(function(){
+            var hrefUrl = $(this).val();
+            if($(this).val()!="") {
+                window.open(hrefUrl, "new Window");
+            }
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="comment">
+        <h1>폼 관련 이벤트 메소드 - focus(), blur(), change()</h1>
+        <article class="data">
+            <input type="text" id="id">
+        </article>
+        <article class="data">
+            사이트 선택:
+            <select id="sel">
+                <option value="" selected>선택안함</option>
+                <option value="http://www.naver.com">네이버</option>
+                <option value="http://www.daum.net">다음</option>
+                <option value="http://www.google.com">구글</option>
+            </select>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
+
+### jQuery 윈도우 관련 이벤트 메소드
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 53 : 창 관련 이벤트 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    input { display:block; width:900px; height:48px; line-height: 48px; 
+    font-size:30px; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //데스크탑(960이상)일 경우 제목, 설명 등의 글자색은 파랑, 글자크기는 제목 : 48px, 설명 : 20px, 이미지는 dy1.jpg로
+        //태블릿(768~959)일 경우 제목, 설명 등의 글자색은 초록, 글자크기는 제목 : 36px, 설명 : 18px, 이미지는 dy2.jpg로
+        //모바일(~767)일 경우 제목, 설명 등의 글자색은 빨강, 글자크기는 제목 : 24px, 설명 : 14px, 이미지는 dy3.jpg로
+        var wd0 = screen.width;
+        $(window).resize(function(){
+            var wd = $(window).width();
+            if(wd>=960 || wd==wd0){
+                $(".title").css("color", "blue").css("font-size","48px");
+                $(".comment").css("color", "blue").css("font-size","20px");
+                $("img").attr("src","dy1.jpg").width(500);
+            } else if(wd>=768) {
+                $(".title").css("color", "green").css("font-size","36px");
+                $(".comment").css("color", "green").css("font-size","18px");
+                $("img").attr("src","dy2.jpg").width(400);
+            } else {
+                $(".title").css("color", "red").css("font-size","24px");
+                $(".comment").css("color", "red").css("font-size","14px");
+                $("img").attr("src","dy3.jpg").width(200);
+            }
+        }).resize();
+    });
+    </script>
+</head>
+<body>
+    <section class="comment">
+        <h1>창 관련 이벤트 메소드 - resize()</h1>
+        <article class="data">
+            <h2 class="title">제목</h2>
+            <p class="comment">설명</p>
+            <h3>이미지 이름 :</h3>
+            <img src="dy1.jpg" alt="위키미키 도연">
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
+
+### jQuery 키보드 관련 이벤트 메소드
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 54 : 키보드 관련 이벤트 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    input { display:block; width:900px; height:48px; line-height: 48px; 
+    font-size:30px; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //아이디가 msgBox인 요소에 글자를 입력하면, 입력된 글자수를 카운트하여 80글자를 기준으로 입력가능한(남은) 글자수를 h2요소에 출력하고, 만약, 초과하여 입력하면, msgBox의 글자색은 빨강으로 하고 비활성화되도록 하고, 초과하지 않으면, 파랑으로 글자색을 표시하며, 아이디가 btn1인 요소를 클릭하면, msgBox를 초기화하도록 하시오.
+        $("#msgBox").keyup(function(){
+            var inLength = $(this).val().length;
+            var remain = 80 - inLength;
+            $("h2").html(remain);
+            if(remain >= 0) {
+                $("h2").css("color","blue");
+            } else {
+                $("h2").css("color","red");
+                $(this).css("color","red");
+                $(this).attr("disabled", "true");
+                $("#status").text(Math.abs(remain)+"글자를 초과하였습니다.");
+            }
+        });
+        $("#btn1").click(function(){
+            $("#msgBox").remove();
+            $("h2").after("<textarea id='msgBox' cols='40' rows='8'></textarea>");
+            $("h2").text("80").css("color","black");
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="comment">
+        <h1>키보드 관련 이벤트 메소드 - keyup(), keydown(), keypress()</h1>
+        <article class="data">
+            <div>
+                남은 글자수
+                <h2>80</h2>
+                <textarea id="msgBox" cols="40" rows="8"></textarea>
+            </div>
+            <div id="status"></div><button id="btn1">초기화</button>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 54 : 키보드 관련 이벤트 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    input { display:block; width:900px; height:48px; line-height: 48px; 
+    font-size:30px; }
+    #imgTarget { transition-duration:0.6s; width:200px; }
+    #msgBox { opacity:0; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //+를 누르면 이미지(#imgTarget)를 두 배 확대, -를 누르면 두 배 축소
+        $("#msgBox").keypress(function (event) {
+			var ht = $("#imgTarget").height();
+			var wd = $("#imgTarget").width();
+			$("#result").text("눌려진 키는 " 
+			+ String.fromCharCode(event.which) + " 이며, 키 값은 " 
+			+ event.which + " 입니다.");
+			if(event.which == 43) {
+				$("#imgTarget").width($("#imgTarget").width()*2);
+			} else if(event.which == 45) {
+				$("#imgTarget").width($("#imgTarget").width()/2);
+			}
+		});
+    });
+    </script>
+</head>
+<body>
+    <section class="comment">
+        <h1>키보드 관련 이벤트 메소드 - keyup(), keydown(), keypress()</h1>
+        <article class="data">
+            <div>
+                <h2>눌려진 키는?</h2>
+                <input id="msgBox" autofocus />
+            </div>
+            <h3 id="result"></h3>
+            <img src="dy3.jpg" alt="도연" id="imgTarget">
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
 <br><hr><br>
+
 
 ## jQuery 효과(Effect) 메소드
 | 메소드 문법 | 설명 |
