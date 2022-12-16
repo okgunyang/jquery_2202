@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery sample Effect5 : 애니메이션 응용5</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    * { margin:0; padding:0; }
+	a { text-decoration:none; }
+	img { border:0;  }
+	#wrap { width:100%; height:100%; }
+	.zoom { display:block;	width:200px; height:200px; overflow:hidden;
+     margin:100px auto; position: relative;	}
+	.zoom img { display:block;	width:200px; height:200px;
+     position:absolute;  top:0; left:0; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        var wd = parseInt($(".zoom").width());
+			var ht = parseInt($(".zoom").height());
+			var t = parseInt(ht / 2) * -1;
+			var l = parseInt(wd / 2) * -1;
+			var wd2 = wd * 2;
+			var ht2 = ht * 2;
+		$(".zoom").mouseover(function() {
+			$(this).find("img").stop().animate({"width":wd2+"px", "height" : ht2+"px", "top" : t+"px", "left":l+"px"}, 500);
+		});
+		$(".zoom").mouseout(function() {
+			$(this).find("img").stop().animate({"width":wd+"px", "height" : ht+"px", "top" : "0px", "left":"0px"}, 500);
+		});
+	});
+</script>
+</head>
+<body>
+	<div id="wrap">
+		<a href="" class="zoom">
+			<img src="img1.jpg" alt="" class="zoom_img">
+		</a>
+	</div>
+</body>
+</html>

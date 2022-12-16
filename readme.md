@@ -2795,6 +2795,427 @@ jQuery에 선택자로 원하는 요소를 선택하지 못하는 경우 선택�
 ※ effect 관련 메소드의 실행시간이 있는 메소드는 easing 속성을 지정할 수 있으며, easing는 가속 또는 감속 효과를 나타냄
 
 
+### jQuery 기본 효과 메소드 show/hide/toggle
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 56 : 보이기/숨기기 효과 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    * { margin: 0; padding:0; }
+    body, html { width: 100%; height: 100%; }
+    ul { list-style:none; }
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    .lst, .btnFrame { margin: 30px auto; width:600px;  clear:both; }
+    .lst li { float:left; margin-left:10px; display:none; }
+    .txt { clear:both; text-align:center; }
+    h1 { text-align: center; margin-top:1.8rem; }
+    p { line-height:1.8; padding-top:2rem; padding-bottom:3rem; }
+    button { display:block; float:left; margin:24px; padding:18px; background-color: #2c4d5f; color:#fff; outline:0; border:0; border-radius:14px; cursor: pointer;
+     }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //아이디가 btn1인 버튼을 클릭하면, .lst 내부의 li 요소를 보이게 하는 효과를 적용
+        $("#btn1").click(function(){ //duration : fast, normal(생략), slow, ms단위 숫자 
+            $(".lst li").show(2000, function(){
+                $(".txt").text("리스트 박스가 보여지고 있습니다.");
+            });
+        });
+        //아이디가 btn2인 버튼을 클릭하면, .lst 내부의 li 요소를 숨기게 하는 효과를 적용
+        $("#btn2").click(function(){
+            $(".lst li").hide("slow", function(){
+                $(".txt").text("리스트 박스가 숨겨지고 있습니다.");
+            });
+        });
+
+        //아이디가 btn3인 버튼을 클릭하면, .lst 내부의 li 요소를 교대로 보이고, 숨기게 하는 효과를 적용
+        $("#btn3").click(function(){
+            $(".lst li").toggle("slow", function(){
+                var status = $(".lst li").css("display");
+                if(status=="none"){
+                    $(".txt").text("리스트 박스가 숨겨지고 있습니다.");
+                } else {
+                    $(".txt").text("리스트 박스가 보여지고 있습니다.");
+                }
+            });
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>보이기/숨기기 효과 메소드 - show(), hide(), toggle()</h1>
+        <p>가로 방향과 세로 방향으로 커지면서 보여지거나 작아지면서 숨겨지는 효과</p>
+        <article class="data">
+            <div class="btnFrame">
+                <button id="btn1">보이기 버튼</button>
+                <button id="btn2">숨기기 버튼</button>
+                <button id="btn3">토글 버튼</button>
+            </div>
+            <ul class="lst">
+                <li><img src="item1.png" alt=""></li>
+                <li><img src="item2.png" alt=""></li>
+                <li><img src="item3.png" alt=""></li>
+            </ul>
+            <div class="txt">버튼을 누르면, 효과가 실행됩니다.</div>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
+
+### jQuery 기본 효과 메소드 slideDown/slideUp/slideToggle 
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 57 : 펼쳐지기/접히기 효과 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    * { margin: 0; padding:0; }
+    body, html { width: 100%; height: 100%; }
+    ul { list-style:none; }
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    .lst, .btnFrame { margin: 30px auto; width:600px;  clear:both; }
+    .lst li { float:left; margin-left:10px; display:none; }
+    .txt { clear:both; text-align:center; }
+    h1 { text-align: center; margin-top:1.8rem; }
+    p { line-height:1.8; padding-top:2rem; padding-bottom:3rem; }
+    button { display:block; float:left; margin:24px; padding:18px; background-color: #2c4d5f; color:#fff; outline:0; border:0; border-radius:14px; cursor: pointer;
+     }
+    </style>
+    <script>
+    $(document).ready(function(){
+        $(".lst li").each(function(index){
+            $(this).delay(index*500).slideDown(600);
+        });
+        //아이디가 btn1인 버튼을 클릭하면, .lst 내부의 li 요소를 펼쳐지면서 보여지는 효과를 적용
+        $("#btn1").click(function(){ 
+            //duration : fast, normal(생략), slow, ms단위 숫자 
+            $(".lst li").slideDown(2000, function(){
+                $(".txt").text("리스트 박스가 펼쳐지고 있습니다.");
+            });
+        });
+        //아이디가 btn2인 버튼을 클릭하면, .lst 내부의 li 요소를 접히면서 숨겨지는 효과를 적용
+        $("#btn2").click(function(){
+            $(".lst li").slideUp("slow", function(){
+                $(".txt").text("리스트 박스가 접히고 있습니다.");
+            });
+        });
+
+        //아이디가 btn3인 버튼을 클릭하면, .lst 내부의 li 요소를 교대로 펼쳐져 보이고, 접히며 숨겨지는 효과를 적용
+        $("#btn3").click(function(){
+            $(".lst li").stop().slideToggle(3000, function(){ //stop(true, true)
+                var status = $(".lst li").css("display");
+                if(status=="none"){
+                    $(".txt").text("리스트 박스가 접히고 있습니다.");
+                } else {
+                    $(".txt").text("리스트 박스가 펼쳐지고 있습니다.");
+                }
+            });
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>보이기/숨기기 효과 메소드 - slideDown(), sildeUp(), slideToggle()</h1>
+        <p>세로 방향으로 펼쳐지면서 보여지거나 접히면서 숨겨지는 효과</p>
+        <h1>지연 메소드 - delay(), 정지 메소드 - stop()</h1>
+        <article class="data">
+            <div class="btnFrame">
+                <button id="btn1">보이기 버튼</button>
+                <button id="btn2">숨기기 버튼</button>
+                <button id="btn3">토글 버튼</button>
+            </div>
+            <ul class="lst">
+                <li><img src="item1.png" alt=""></li>
+                <li><img src="item2.png" alt=""></li>
+                <li><img src="item3.png" alt=""></li>
+            </ul>
+            <div class="txt">버튼을 누르면, 효과가 실행됩니다.</div>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
+
+### jQuery 기본 효과 메소드 fadeIn/fadeOut/fadeToggle
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 58 : 페이드 효과 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    * { margin: 0; padding:0; }
+    body, html { width: 100%; height: 100%; }
+    ul { list-style:none; }
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    .lst, .btnFrame { margin: 30px auto; width:600px;  clear:both; }
+    .lst li { float:left; margin-left:10px; display:none; }
+    .txt { clear:both; text-align:center; }
+    h1 { text-align: center; margin-top:1.8rem; }
+    p { line-height:1.8; padding-top:2rem; padding-bottom:3rem; }
+    button { display:block; float:left; margin:24px; padding:18px; background-color: #2c4d5f; color:#fff; outline:0; border:0; border-radius:14px; cursor: pointer;
+     }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        //가속 감속 효과 모음 : linear swing easeInQuad easeOutQuad easeInOutQuad easeInCubic easeOutCubic easeInOutCubic easeInQuart easeOutQuart easeInOutQuart easeInQuint easeOutQuint easeInOutQuint easeInSine easeOutSine easeInOutSine easeInExpo easeOutExpo easeInOutExpo easeInCirc easeOutCirc easeInOutCirc easeInElastic easeOutElastic easeInOutElastic easeInBack easeOutBack easeInOutBack easeInBounce easeOutBounce easeInOutBounce
+        $(".lst li").each(function(index){
+            $(this).delay(index*500).fadeIn(600, "easeInOutBounce");
+        });
+        //아이디가 btn1인 버튼을 클릭하면, .lst 내부의 li 요소를 서서히 보여지는 효과를 적용
+        $("#btn1").click(function(){ 
+            //duration : fast, normal(생략), slow, ms단위 숫자 
+            $(".lst li").each(function(index){ 
+                $(this).delay(index*500).fadeIn(2000, "easeOutElastic");
+                $(".txt").text("리스트 박스가 서서히 나타나고 있습니다.");    
+            });
+        });
+        //아이디가 btn2인 버튼을 클릭하면, .lst 내부의 li 요소를 서서히 사라지는 효과를 적용
+        $("#btn2").click(function(){
+            $(".lst li").fadeOut("slow", "easeOutCubic", function(){
+                $(".txt").text("리스트 박스가 서서히 사라지고 있습니다.");
+            });
+        });
+
+        //아이디가 btn3인 버튼을 클릭하면, .lst 내부의 li 요소를 교대로 서서히 보이고, 서서히 사라지는 효과를 적용
+        $("#btn3").click(function(){
+            $(".lst li").stop().fadeToggle(3000, "easeOutExpo", function(){ //stop(true, true)
+                var status = $(".lst li").css("display");
+                if(status=="none"){
+                    $(".txt").text("리스트 박스가 서서히 사라지고 있습니다.");
+                } else {
+                    $(".txt").text("리스트 박스가 서서히 나타나고 있습니다.");
+                }
+            });
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>서서히 보이기 서서히 사라지는 효과 메소드 - fadeIn(), fadeOut(), fadeToggle()</h1>
+        <p>서서히 보여지거나 서서히 사라지는 효과</p>
+        <h1>가속 감속 효과 적용시 jquery.easing.js 활용</h1>
+        <article class="data">
+            <div class="btnFrame">
+                <button id="btn1">보이기 버튼</button>
+                <button id="btn2">숨기기 버튼</button>
+                <button id="btn3">토글 버튼</button>
+            </div>
+            <ul class="lst">
+                <li><img src="item1.png" alt=""></li>
+                <li><img src="item2.png" alt=""></li>
+                <li><img src="item3.png" alt=""></li>
+            </ul>
+            <div class="txt">버튼을 누르면, 효과가 실행됩니다.</div>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
+
+### jQuery 기본 효과 메소드 fadeTo
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 59 : 흐림도(불투명도) 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    * { margin: 0; padding:0; }
+    body, html { width: 100%; height: 100%; }
+    ul { list-style:none; }
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    .lst, .btnFrame { margin: 30px auto; width:600px;  clear:both; }
+    .lst li { float:left; margin-left:10px; opacity:1; }
+    .txt { clear:both; text-align:center; }
+    h1 { text-align: center; margin-top:1.8rem; }
+    p { line-height:1.8; padding-top:2rem; padding-bottom:3rem; }
+    button { display:block; float:left; margin:24px; padding:18px; background-color: #2c4d5f; color:#fff; outline:0; border:0; border-radius:14px; cursor: pointer;
+     }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //아이디가 btn1인 버튼을 클릭하면, .lst 내부의 li 요소를 서서히 선명해지는 효과를 적용
+        var opa = parseFloat($(".lst li").css("opacity"));
+        $("#btn1").click(function(){ 
+            if(opa<1) {
+                opa = opa + 0.1;
+            }
+            $(".lst li").clearQueue().fadeTo(300, opa);
+        });
+        //아이디가 btn2인 버튼을 클릭하면, .lst 내부의 li 요소를 서서히 흐려지는 효과를 적용
+        $("#btn2").click(function(){
+            if(opa>0){
+                opa = opa - 0.1;
+            }
+            $(".lst li").clearQueue().fadeTo(300, opa);
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>흐림도(불투명도) 효과 메소드 - fadeTo()</h1>
+        <p>서서히 흐려지거나 서서히 선명해지는 효과</p>
+        <article class="data">
+            <div class="btnFrame">
+                <button id="btn1">선명하게 버튼</button>
+                <button id="btn2">흐리게 버튼</button>
+            </div>
+            <ul class="lst">
+                <li><img src="item1.png" alt=""></li>
+                <li><img src="item2.png" alt=""></li>
+                <li><img src="item3.png" alt=""></li>
+            </ul>
+            <div class="txt">버튼을 누르면, 효과가 실행됩니다.</div>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
+
+### jQuery 사용자 효과 메소드 animate
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 60 : 사용자 정의 애니메이션 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    * { margin: 0; padding:0; }
+    body, html { width: 100%; height: 100%; }
+    ul { list-style:none; }
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    #visual { width:200px; height:200px; margin:100px auto;
+	 overflow:hidden; position:relative; clear:both; margin-bottom: 10px; }
+	.img_box { width:2000px; height:200px; }
+	#visual a { display:block; width:200px; height:200px; float:left; 
+    position: relative; }
+	#visual img { display:block; width:200px; height:auto; }
+	.num { display:block; color:black;	background:yellow;
+	 border-radius:20px; width:40px; height:40px; position:absolute;
+	  z-index:10; top:20px; left:20px;
+		text-align:center;	line-height: 40px; }
+	#btn_box { width:200px; height:30px; margin:0px auto; }
+	#btn_box a { display:block; width:30px; height:30px; cursor:pointer; 
+    position:absolute; top:280px; z-index:20; }
+	#btn_box .left { left:50%; margin-left:-150px; }
+	#btn_box .right { right:50%; margin-right:-150px; }
+    #num_box { clear:both; width:200px; margin:2px auto; height:40px; }
+    #num_box span { display:block; width:32px; margin:8px; float:left; color:#333; 
+    cursor:pointer; text-align: center; line-height: 32px; font-weight: 900; }
+    </style>
+    <script>
+    $(document).ready(function(){
+       var len = $(".img_box a").length;
+       var wd = $("#visual").width();
+       $(".img_box a").each(function(index){
+            $(this).find(".num").text(index+1);
+            $("#num_box").append("<span>"+(index+1)+"</span>")
+       }); 
+       $("#btn_box .left").click(function(){
+            var ml = parseInt($(".img_box").css("margin-left"));
+            if(ml<0) {
+                $(".img_box").not(":animated").animate({"margin-left":"+="+wd+"px"}, 500);
+            }
+       });
+       $("#btn_box .right").click(function(){
+            var ml = parseInt($(".img_box").css("margin-left"));
+            if(ml>(len-1)*wd*-1) {
+                $(".img_box").not(":animated").animate({"margin-left":"-="+wd+"px"}, 500);
+            }
+       });
+       $("#num_box span").click(function(){
+            var idx = $(this).index() * -1;
+            var mlt = idx * wd;
+            $(".img_box").not(":animated").animate({"margin-left":mlt+"px"}, 500);
+       });
+    });
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>사용자 정의 효과 메소드 - animate()</h1>
+        <p>사용자가 애니메이션을 작성할 수 있도록한 메소드</p>
+        <article class="data">
+            <section id="visual">
+                <div class="img_box">
+                    <a href="">
+                        <img src="dy1.jpg" alt="">
+                        <span class="num"></span>
+                    </a>
+                    <a href="">
+                        <img src="dy2.jpg" alt="">
+                        <span class="num"></span>
+                    </a>
+                    <a href="">
+                        <img src="dy3.jpg" alt="">
+                        <span class="num"></span>
+                    </a>
+                    <a href="">
+                        <img src="im0.jpg" alt="">
+                        <span class="num"></span>
+                    </a>
+                </div>
+            </section>
+            <section id="btn_box">
+                <a class="left">◀</a><a class="right">▶</a>
+            </section>
+            <div id="num_box"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
+
 <br><hr><br>
 
 ## jQuery 유틸리티(Utility) 메소드

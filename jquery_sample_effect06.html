@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery sample Effect6 : 애니메이션 응용6</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+	* { margin:0; padding:0; }
+	a { text-decoration:none; }
+	#visual { width:200px; height:200px; margin:15px auto;
+	 overflow:hidden;}
+	.img_box { width:800px; height:200px; }
+	#visual a { display:block; width:200px; height:200px; float:left;
+	 position:relative; }
+	#visual img { display:block; width:200px; height:200px; }
+	.num { display:block; color:black;	background:yellow;
+	 border-radius:20px; width:40px; height:40px; position:absolute;
+	  z-index:10; top:20px; left:20px;
+		text-align:center;	line-height: 40px; }
+	#btn_box { width:200px; height:30px; margin:0px auto; }
+	#btn_box a { display:block; width:30px; height:30px; cursor:pointer; }
+	#btn_box .left { float:left; }
+	#btn_box .right { float:right; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        var cnt = $(".img_box a").length;
+        var wd = parseInt($("#visual").width());
+        var itv = setInterval(function(){ rAni(); }, 3000);
+        function rAni(){
+            $(".img_box").not(":animated").animate({ "margin-left": "-" + wd + "px" }, 500, function () {
+                $(".img_box a").eq(0).appendTo($(".img_box"));
+                $(".img_box").css("margin-left", "0px");
+            });
+        };
+        function lAni(){
+            $(".img_box a").eq(cnt - 1).prependTo($(".img_box"));
+            $(".img_box").css("margin-left", "-" + wd + "px");
+            $(".img_box").not(":animated").animate({ "margin-left": "0px" }, 500);
+        };
+		$("#btn_box a.right").on("click", function() {
+            clearInterval(itv);
+            rAni();
+            itv = setInterval(function () { rAni(); }, 3000);
+		});
+		$("#btn_box a.left").on("click", function() {
+            clearInterval(itv);
+            lAni();
+            itv = setInterval(function () { rAni(); }, 3000);
+		});
+	});
+</script>
+</head>
+<body>
+	<section id="visual">
+		<div class="img_box">
+			<a href="">
+				<img src="img1.jpg" alt="">
+				<span class="num">1</span>
+			</a>
+			<a href="">
+				<img src="img2.jpg" alt="">
+				<span class="num">2</span>
+			</a>
+			<a href="">
+				<img src="img3.jpg" alt="">
+				<span class="num">3</span>
+			</a>
+			<a href="">
+				<img src="img4.jpg" alt="">
+				<span class="num">4</span>
+			</a>
+		</div>
+	</section>
+	<section id="btn_box">
+		<a class="left">◀</a><a class="right">▶</a>
+	</section>
+</body>
+</html>

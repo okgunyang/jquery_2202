@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery sample Effect7 : 애니메이션 응용7</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    /*common*/
+    *{margin:0; padding:0;}
+    a{text-decoration:none;}
+    ::-webkit-scrollbar { display:none; } 
+    body, html{font-family:'NanumGothic', serif; 
+    width:100%; height:100%;  -ms-overflow-style:none;  }
+    img { border:0;}
+    p.coment {font-family:'NanumMyeongjo', serif}
+    ul{list-style:none}
+    /*공통 클래스 설정*/
+    #hd, #content, #ft{width:100%; clear:both;}
+    #hd { position:absolute; z-index:20; left:0; top:0;
+        background:rgba(0,0,0,0.75); color:#fff; height:80px; }
+    #gnb { width:80%; margin:0 auto; }
+    #gnb li { width:25%; float:left; padding-top:15px; }
+    #gnb a { display:block; height:20px; line-height:20px; 
+        padding-top:10px; 	width:100%; color:#fff; text-align:center;
+        font-size:1.4em; padding-bottom:10px; }
+    #gnb li .sub { display:none; }
+    #gnb li .sub li { clear:both; width:180px; height:40px; 
+    margin:0;  background:rgba(0,0,0,0.9); }
+    #gnb li .sub li a {  color:#fff; }
+    /* #gnb li:hover .sub { display:block; }  */
+    /*main*/
+    #slider{overflow:hidden;  position:relative; height:100%; }
+    #slider #banner1 { width:400%; height:100%; }
+    #slider #banner1 a { width:25%; display:block; float:left; 
+        height:100%; position:relative; }
+    #slider #banner1 img { width:100%; display:block; height:100%;
+        overflow:hidden; }
+    .page { clear:both; width:100%; height:100%; overflow:hidden;
+        position:relative; }
+    .page img { display:block; width:100%; height:100%; }
+    #content { width:100%; height:100%; overflow:hidden; }
+    .visual { display:block; width:100%; height:auto; 
+    overflow:hidden; }
+    .coment { padding:10px; line-height:2.4; }
+    .title { padding-top:90px; line-height:2; text-align:center; }
+    /* 페이지네이션 */
+    .pageNation { position:fixed; right:0; top:150px; width:80px;
+        z-index:21; }
+    .btn { display:block; width:10px; height:10px; margin:10px auto; 
+    border:0; outline:0; border-radius:6px; border:1px solid #222;
+    background:rgba(0, 0, 0, 0.8); cursor:pointer; cursor:pointer;}
+    .btn.on { background:rgba(200, 10, 0, 0.8); 
+    border:2px solid #fff; }
+    </style>
+    <script>
+        //한 페이지씩 스크롤
+        $(document).ready(function () {
+        	var sc_pg = parseInt($(window).height());
+			$(window).on('mousewheel', function(e){
+				if(e.originalEvent.wheelDelta < 0) {
+					$('html, body').not(":animated").animate({
+                        scrollTop : '+='+sc_pg+'px'},800);
+				} else {
+					$('html, body').not(":animated").animate({
+                        scrollTop : '-='+sc_pg+'px'},800);
+				}
+				return false;
+			});
+			//$(window).mousewheel
+		});
+    </script>
+    <script>
+        //인터발 슬라이더
+        $(document).ready(function(){
+            var wd = parseInt($(window).width());
+            function rAni(){
+                $("#banner1").not(":animated").animate({
+                    "margin-left" : -wd+"px"}, 800, function(){
+                    $("#banner1 a").eq(0).appendTo($("#banner1"));
+                    $("#banner1").css("margin-left", "0px");
+                });
+            };
+            var itv = setInterval(function(){ rAni(); }, 3000);
+        });
+    </script>
+    <script>
+    $(document).ready(function(){
+        //메뉴의 스크롤 모션
+        $(window).scroll(function(){
+            var sct = $(window).scrollTop();
+            if(sct>=500){
+                $("#hd").css("position", "fixed");
+                $("#hd").not(":animated").slideDown(800);
+            } else if(sct>=100) {
+                $("#hd").css("display", "none");
+            } else {
+                $("#hd").css("position", "absolute");
+                $("#hd").not(":animated").slideDown(800);
+            }
+        });
+    });
+    </script>
+    <script>
+    $(document).ready(function(){
+        $(".pageNation .btn").eq(0).addClass("on");
+        var sc_pg = parseInt($(window).height());
+        $(window).scroll(function(){
+            var sct = $(window).scrollTop();
+            var btnPos = parseInt(sct / sc_pg);
+            $(".pageNation .btn").removeClass("on");
+            $(".pageNation .btn").eq(btnPos).addClass("on");
+        });
+        $(".pageNation .btn").click(function(){
+            var cPage = $(this).attr("data-val");
+            $('html, body').not(":animated").animate({
+                scrollTop: cPage*sc_pg + 'px'
+            }, 1600);
+        });
+    });
+    </script>
+    <script>
+    $(document).ready(function(){
+        //메뉴 애니메이션
+       $("#gnb li").mouseenter(function(){
+           $(this).find(".sub").not(":animated").stop().slideDown(600);
+       }); 
+       $("#gnb li").mouseleave(function () {
+            $(this).find(".sub").css("display","none");
+       }); 
+    });
+    </script>
+</head>
+<body>
+    <div class="pageNation">
+        <button class="btn" data-val="0"></button>
+        <button class="btn" data-val="1"></button>
+        <button class="btn" data-val="2"></button>
+        <button class="btn" data-val="3"></button>
+        <button class="btn" data-val="4"></button>
+        <button class="btn" data-val="5"></button>
+        <button class="btn" data-val="6"></button>
+        <button class="btn" data-val="7"></button>
+        <button class="btn" data-val="8"></button>
+        <button class="btn" data-val="9"></button>
+        <button class="btn" data-val="10"></button>
+        <button class="btn" data-val="11"></button>
+    </div>
+	<header id="hd">
+		<nav id="gnb">
+			<ul>
+                <li>
+                    <a href="">Intro</a>
+                    <ul class="sub">
+                        <li><a href="">메뉴1</a></li>
+                        <li><a href="">메뉴2</a></li>
+                        <li><a href="">메뉴3</a></li>
+                        <li><a href="">메뉴4</a></li>
+                    </ul>
+                </li>
+				<li>
+                    <a href="">Portfolio</a>
+                    <ul class="sub">
+                        <li><a href="">메뉴1</a></li>
+                        <li><a href="">메뉴2</a></li>
+                        <li><a href="">메뉴3</a></li>
+                        <li><a href="">메뉴4</a></li>
+                    </ul>
+                </li>
+				<li>
+                    <a href="">Working</a>
+                    <ul class="sub">
+                        <li>
+                            <a href="">메뉴1</a>
+                        </li>
+                        <li>
+                            <a href="">메뉴2</a>
+                        </li>
+                        <li>
+                            <a href="">메뉴3</a>
+                        </li>
+                        <li>
+                            <a href="">메뉴4</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Contact</a>
+                    <ul class="sub">
+                        <li>
+                            <a href="">메뉴1</a>
+                        </li>
+                        <li>
+                            <a href="">메뉴2</a>
+                        </li>
+                        <li>
+                            <a href="">메뉴3</a>
+                        </li>
+                        <li>
+                            <a href="">메뉴4</a>
+                        </li>
+                    </ul>
+                </li>
+			</ul>
+		</nav>
+	</header>
+    <div class="page">
+        <article class="page" id="slider">
+            <div id="banner1">
+                <a class="img1"><img src="img5.jpg" alt="비주얼01"/></a>
+                <a class="img1"><img src="img2.jpg" alt="비주얼02"/></a>
+                <a class="img1"><img src="img3.jpg" alt="비주얼03"/></a>
+                <a class="img1"><img src="img4.jpg" alt="비주얼04"/></a>
+            </div>
+        </article>
+    </div>
+    <div class="page" id="page1">
+        <img src="im1.jpg" alt="" class="visual">
+    </div>
+    <div class="page" id="page2">
+        <img src="im2.jpg" alt="" class="visual">
+    </div>
+    <div class="page" id="page3">
+        <img src="im3.jpg" alt="" class="visual">
+    </div>
+    <div class="page" id="page4">
+        <img src="im4.jpg" alt="" class="visual">
+    </div>
+    <div class="page" id="page5">
+        <img src="im5.jpg" alt="" class="visual">
+    </div>
+    <div class="page" id="page6">
+        <img src="im6.jpg" alt="" class="visual">
+    </div>
+    <div class="page" id="page7">
+        <img src="im7.jpg" alt="" class="visual">
+    </div>
+    <div class="page" id="page8">
+        <img src="im8.jpg" alt="" class="visual">
+    </div>
+    <div class="page" id="page9">
+        <img src="im9.jpg" alt="" class="visual">
+    </div>
+    <div class="page" id="page10">
+        <img src="im10.jpg" alt="" class="visual">
+    </div>
+	<div class="page" id="content">
+        <h2 class="title">Lorem Ipsum</h2>
+        <p class="coment">
+		In spacecraft operations, The Launch and Early Orbit phase (LEOP) is one of the most critical phases of a mission. Spacecraft operations engineers take control of the
+		satellite after it separates from the launch vehicle up to the time when the satellite is safely positioned in its final orbit.
+		During this period, operations staff works 24 hours a day to activate, monitor and control the various subsystems of the satellite, including the deployment of any 
+		satellite appendages (antennas, solar array, reflector, etc.), and undertake critical orbit and attitude control manoeuvres.
+		For geostationary satellites, the launch vehicle typically carries the spacecraft to Geostationary Transfer Orbit, or GTO. From this elliptical orbit, the LEOP generally 
+		includes a sequence of apogee engine firings to reach the circular geostationary orbit.
+		In spacecraft operations, The Launch and Early Orbit phase (LEOP) is one of the most critical phases of a mission. Spacecraft operations engineers take control of the
+		satellite after it separates from the launch vehicle up to the time when the satellite is safely positioned in its final orbit.
+		During this period, operations staff works 24 hours a day to activate, monitor and control the various subsystems of the satellite, including the deployment of any 
+		satellite appendages (antennas, solar array, reflector, etc.), and undertake critical orbit and attitude control manoeuvres.
+		For geostationary satellites, the launch vehicle typically carries the spacecraft to Geostationary Transfer Orbit, or GTO. From this elliptical orbit, the LEOP generally 
+		includes a sequence of apogee engine firings to reach the circular geostationary orbit.
+        </p>
+    </div>
+</body>
+</html>

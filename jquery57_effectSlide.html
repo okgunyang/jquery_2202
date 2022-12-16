@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 57 : 펼쳐지기/접히기 효과 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    * { margin: 0; padding:0; }
+    body, html { width: 100%; height: 100%; }
+    ul { list-style:none; }
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    .lst, .btnFrame { margin: 30px auto; width:600px;  clear:both; }
+    .lst li { float:left; margin-left:10px; display:none; }
+    .txt { clear:both; text-align:center; }
+    h1 { text-align: center; margin-top:1.8rem; }
+    p { line-height:1.8; padding-top:2rem; padding-bottom:3rem; }
+    button { display:block; float:left; margin:24px; padding:18px; background-color: #2c4d5f; color:#fff; outline:0; border:0; border-radius:14px; cursor: pointer;
+     }
+    </style>
+    <script>
+    $(document).ready(function(){
+        $(".lst li").each(function(index){
+            $(this).delay(index*500).slideDown(600);
+        });
+        //아이디가 btn1인 버튼을 클릭하면, .lst 내부의 li 요소를 펼쳐지면서 보여지는 효과를 적용
+        $("#btn1").click(function(){ 
+            //duration : fast, normal(생략), slow, ms단위 숫자 
+            $(".lst li").slideDown(2000, function(){
+                $(".txt").text("리스트 박스가 펼쳐지고 있습니다.");
+            });
+        });
+        //아이디가 btn2인 버튼을 클릭하면, .lst 내부의 li 요소를 접히면서 숨겨지는 효과를 적용
+        $("#btn2").click(function(){
+            $(".lst li").slideUp("slow", function(){
+                $(".txt").text("리스트 박스가 접히고 있습니다.");
+            });
+        });
+
+        //아이디가 btn3인 버튼을 클릭하면, .lst 내부의 li 요소를 교대로 펼쳐져 보이고, 접히며 숨겨지는 효과를 적용
+        $("#btn3").click(function(){
+            $(".lst li").stop().slideToggle(3000, function(){ //stop(true, true)
+                var status = $(".lst li").css("display");
+                if(status=="none"){
+                    $(".txt").text("리스트 박스가 접히고 있습니다.");
+                } else {
+                    $(".txt").text("리스트 박스가 펼쳐지고 있습니다.");
+                }
+            });
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>보이기/숨기기 효과 메소드 - slideDown(), sildeUp(), slideToggle()</h1>
+        <p>세로 방향으로 펼쳐지면서 보여지거나 접히면서 숨겨지는 효과</p>
+        <h1>지연 메소드 - delay(), 정지 메소드 - stop()</h1>
+        <article class="data">
+            <div class="btnFrame">
+                <button id="btn1">보이기 버튼</button>
+                <button id="btn2">숨기기 버튼</button>
+                <button id="btn3">토글 버튼</button>
+            </div>
+            <ul class="lst">
+                <li><img src="item1.png" alt=""></li>
+                <li><img src="item2.png" alt=""></li>
+                <li><img src="item3.png" alt=""></li>
+            </ul>
+            <div class="txt">버튼을 누르면, 효과가 실행됩니다.</div>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>

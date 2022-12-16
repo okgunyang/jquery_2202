@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 60 : 사용자 정의 애니메이션 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    * { margin: 0; padding:0; }
+    body, html { width: 100%; height: 100%; }
+    ul { list-style:none; }
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    #visual { width:200px; height:200px; margin:100px auto;
+	 overflow:hidden; position:relative; clear:both; margin-bottom: 10px; }
+	.img_box { width:2000px; height:200px; }
+	#visual a { display:block; width:200px; height:200px; float:left; 
+    position: relative; }
+	#visual img { display:block; width:200px; height:auto; }
+	.num { display:block; color:black;	background:yellow;
+	 border-radius:20px; width:40px; height:40px; position:absolute;
+	  z-index:10; top:20px; left:20px;
+		text-align:center;	line-height: 40px; }
+	#btn_box { width:200px; height:30px; margin:0px auto; }
+	#btn_box a { display:block; width:30px; height:30px; cursor:pointer; 
+    position:absolute; top:280px; z-index:20; }
+	#btn_box .left { left:50%; margin-left:-150px; }
+	#btn_box .right { right:50%; margin-right:-150px; }
+    #num_box { clear:both; width:200px; margin:2px auto; height:40px; }
+    #num_box span { display:block; width:32px; margin:8px; float:left; color:#333; 
+    cursor:pointer; text-align: center; line-height: 32px; font-weight: 900; }
+    </style>
+    <script>
+    $(document).ready(function(){
+       var len = $(".img_box a").length;
+       var wd = $("#visual").width();
+       $(".img_box a").each(function(index){
+            $(this).find(".num").text(index+1);
+            $("#num_box").append("<span>"+(index+1)+"</span>")
+       }); 
+       $("#btn_box .left").click(function(){
+            var ml = parseInt($(".img_box").css("margin-left"));
+            if(ml<0) {
+                $(".img_box").not(":animated").animate({"margin-left":"+="+wd+"px"}, 500);
+            }
+       });
+       $("#btn_box .right").click(function(){
+            var ml = parseInt($(".img_box").css("margin-left"));
+            if(ml>(len-1)*wd*-1) {
+                $(".img_box").not(":animated").animate({"margin-left":"-="+wd+"px"}, 500);
+            }
+       });
+       $("#num_box span").click(function(){
+            var idx = $(this).index() * -1;
+            var mlt = idx * wd;
+            $(".img_box").not(":animated").animate({"margin-left":mlt+"px"}, 500);
+       });
+    });
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>사용자 정의 효과 메소드 - animate()</h1>
+        <p>사용자가 애니메이션을 작성할 수 있도록한 메소드</p>
+        <article class="data">
+            <section id="visual">
+                <div class="img_box">
+                    <a href="">
+                        <img src="dy1.jpg" alt="">
+                        <span class="num"></span>
+                    </a>
+                    <a href="">
+                        <img src="dy2.jpg" alt="">
+                        <span class="num"></span>
+                    </a>
+                    <a href="">
+                        <img src="dy3.jpg" alt="">
+                        <span class="num"></span>
+                    </a>
+                    <a href="">
+                        <img src="im0.jpg" alt="">
+                        <span class="num"></span>
+                    </a>
+                </div>
+            </section>
+            <section id="btn_box">
+                <a class="left">◀</a><a class="right">▶</a>
+            </section>
+            <div id="num_box"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
