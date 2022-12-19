@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 63 : 배열의 합치기 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    
+    </style>
+    <script>
+    var arr1 = ["kim", "lee", "park", "joeng", "han"];
+    var arr2 = ["kang", "choi", "oh", "nam"]
+    $(function(){
+        //아이디가 btn1인 요소를 클릭하면,
+        //1) 위 arr1과 arr2 배열 요소를 합치기 하여 #res1에 출력
+        $("#btn1").click(function(){
+            var mg = $.merge(arr1, arr2);
+            $("#res1").text(mg.join(", "));
+        });
+        //아이디가 btn2인 요소를 클릭하면,
+        //2) 아래 아이디가 lst1인 요소의 자식 요소와 lst2인 요소를 합치기 하여 비순서형 목록 형태로 아이디가 res2인 곳에 출력
+        $("#btn2").click(function(){
+            $("#res2").append("<ul id='merge_data'></ul>");
+            var ar1 = $("#lst1 li").clone();
+            var ar2 = $("#lst2 li").clone();
+            var mg = $.merge(ar1, ar2);
+            $.each(mg, function(index){
+                $("#merge_data").append(mg[index]);
+            });
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>배열의 합치기 메소드 - merge()</h1>
+        <p>배열의 요소를 합치기하여 또 다른 배열로 반환하는 메소드</p>
+        <article class="data">
+            <div id="res1"></div>
+            <button type="button" id="btn1">merge를 이용한 배열 합치기1</button>
+            <div id="data1">
+                <ul id="lst1">
+                    <li>javascript</li>
+                    <li>jQuery</li>
+                    <li>Lodash</li>
+                    <li>Momento</li>
+                </ul>
+                <ul id="lst2">
+                    <li>Node</li>
+                    <li>React</li>
+                    <li>Vue</li>
+                    <li>Angular</li>
+                </ul>
+            </div>
+            <button type="button" id="btn2">merge를 이용한 배열 합치기2</button>
+            <div id="res2"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>

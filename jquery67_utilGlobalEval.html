@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 67 : 날짜와 계산식 처리 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    
+    </style>
+    <script>
+    $(function(){       
+        //아이디가 btn1인 요소를 클릭하면,
+        //1) #res1에 현재 시각을 출력
+        //2) #res2에 아이디가 reg인 곳의 계산식을 처리하여 그 결과인 k를 출력
+        $("#btn1").click(function(){
+            $("#res1").text($.now());       //Date.now()
+            $.globalEval($("#reg").text());
+            $("#res2").text(k);
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>날짜와 문자열 계산식 처리 메소드 - now(), glovalEval()</h1>
+        <article class="data">
+            <div id="reg">var k = 1004;</div>
+            <div id="res1"></div>
+            <div id="res2"></div>
+            <button type="button" id="btn1">현재 시각과 계산식의 처리</button>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 65 : 객체 요소 합치기 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+    <script>
+    var obj1 = { apple:0, banana:{ weight:52, price:1000 }, cherry:97};
+    var obj2 = {  banana:{ price:2000 },  durian:10000 };    
+    //아이디가 btn1인 요소를 클릭하면,
+    //1) 위 obj1과 obj2인 객체를 합치기 하여 map과 같은 JSON 의 형태로 #res1에 출력하시오.
+    $(function(){
+        $("#btn1").click(function(){
+            var obj = $.extend(obj1, obj2);
+            $("#res1").append(JSON.stringify(obj));
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>객체 요소 합치기 메소드 - extend()</h1>
+        <p>객체의 요소를 합치는 메소드</p>
+        <article class="data">
+            <div id="res1"></div>
+            <button type="button" id="btn1">extend를 이용한 객체 요소 합치기</button>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 68 : 외부 엘리먼트 HTML로 파싱 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+    <script>
+    var str = "hello, <b>data binding</b> jQuery."
+    //아이디가 btn1인 요소를 클릭하면,
+    //1) 위 str 데이터를 #res1에 태그 형식으로 출력하시오.
+    $(function(){
+        $("#btn1").click(function(){
+            $("#res1").append($.parseHTML(str));
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>외부 엘리먼트 HTML로 파싱 메소드 - parseHTML()</h1>
+        <p>불러온 외부 엘리먼트를 포함한 데이터를 HTML로 파싱하는 메소드</p>
+        <article class="data">
+            <div id="res1"></div>
+            <button type="button" id="btn1">외부 텍스트를 포함한 내용을 HTML로 파싱하기</button>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>

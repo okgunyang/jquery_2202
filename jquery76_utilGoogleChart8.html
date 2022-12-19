@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 76 : jQuery 데이터 바인딩과 구글 차트 - 도넛형 그래프</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+    <script>
+    //문서가 로딩되면, 아이디가 chart1인 곳에 구글 차트를 활용하여 도넛형 그래프를 그리시오.
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h2>구글 차트 데이터 설정 - arrayToDataTable()</h2>
+        <h2>도넛형 그래프 - PieChart()</h2>
+        <article class="data">
+            <div id="chart1"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+        // 차트 패키지 로딩
+        google.charts.load('current', {packages:['corechart']});
+    </script>
+    <script>
+    google.charts.setOnLoadCallback(drawChart);
+    //실제 데이터베이스에서 매핑된 데이터를 배열로 먼저 파싱한 후 접목할 것.
+    function drawChart(){
+        var data = google.visualization.arrayToDataTable([
+            ['항목', '하루당 할애시간'],
+            ['일하는 시간', 11],
+            ['식사 시간', 2],
+            ['출퇴근 시간', 2],
+            ['TV 시청 시간', 2],
+            ['수면 시간', 7]
+        ]);
+        var options = {
+            title: '도넛형 차트', pieHole: 0.4,
+        };
+        var chart = new google.visualization.PieChart(document.getElementById("chart1"));
+        chart.draw(data, options);
+    }
+    </script>
+</body>
+</html>

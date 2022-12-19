@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 78 : jQuery 데이터 바인딩과 구글 차트 - 달력형 그래프</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+    <script>
+    //문서가 로딩되면, 아이디가 chart1인 곳에 구글 차트를 활용하여 캘린더 그래프를 그리시오.
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h2>구글 차트 데이터 설정 - arrayToDataTable()</h2>
+        <h2>캘린더 그래프 - Calendar()</h2>
+        <article class="data">
+            <div id="chart1"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+        // 차트 패키지 로딩
+        google.charts.load('current', {packages:['calendar']});
+    </script>
+    <script>
+    google.charts.setOnLoadCallback(drawChart);
+    //실제 데이터베이스에서 매핑된 데이터를 배열로 먼저 파싱한 후 접목할 것.
+    function drawChart(){
+        var data = new google.visualization.DataTable();
+        data.addColumn({ type: 'date', id: 'Date' });
+       data.addColumn({ type: 'number', id: 'Won/Loss' });
+       data.addRows([
+          [ new Date(2012, 3, 13), 37032 ],
+          [ new Date(2012, 3, 14), 38024 ],
+          [ new Date(2012, 3, 15), 38024 ],
+          [ new Date(2012, 3, 16), 38108 ],
+          [ new Date(2012, 3, 17), 38229 ],
+          // Many rows omitted for brevity.
+          [ new Date(2013, 9, 4), 38177 ],
+          [ new Date(2013, 9, 5), 38705 ],
+          [ new Date(2013, 9, 12), 38210 ],
+          [ new Date(2013, 9, 13), 38029 ],
+          [ new Date(2013, 9, 19), 38823 ],
+          [ new Date(2013, 9, 23), 38345 ],
+          [ new Date(2013, 9, 24), 38436 ],
+          [ new Date(2013, 9, 30), 38447 ]
+        ]);
+        var options = {
+            title: "달력형 그래프",
+            height: 350,
+        };
+        var chart = new google.visualization.Calendar(document.getElementById("chart1"));
+        chart.draw(data, options);
+    }
+    </script>
+</body>
+</html>

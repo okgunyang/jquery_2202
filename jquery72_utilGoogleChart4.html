@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 72 : jQuery 데이터 바인딩과 구글 차트 - 누적 수직 막대 그래프</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+    <script>
+    //문서가 로딩되면, 아이디가 chart1인 곳에 구글 차트를 활용하여 누적 세로 막대 그래프를 그리시오.
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h2>구글 차트 데이터 설정 - arrayToDataTable()</h2>
+        <p>구글 누적 세로 막대 그래프</p>
+        <article class="data">
+            <div id="chart1"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+        // 차트 패키지 로딩
+        google.charts.load('current', {packages:['corechart']});
+    </script>
+    <script>
+    google.charts.setOnLoadCallback(drawChart);
+    //실제 데이터베이스에서 매핑된 데이터를 배열로 먼저 파싱한 후 접목할 것.
+    function drawChart(){
+        var data = google.visualization.arrayToDataTable([
+            ["년대","짜장면","붕어빵","달고나","풍선껌"],
+            ['1950', 10, 20, 30, 40], // 제목과 항목수를 맞춰주어야 합니다.
+            ['1960', 15, 30, 35, 20],
+            ['1970', 20, 25, 40, 30],
+            ['1980', 10, 30, 20, 50],
+            ['1990', 5, 10, 25, 55]
+        ]);
+        var options = {
+            title : "그 때 그 시절 그 것", width:700, height:400,
+            bar:{groupWidth:"50%"},
+            isStacked:true //true-누적형, false-기본형
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById("chart1"));
+        chart.draw(data, options);
+    }
+    </script>
+</body>
+</html>
