@@ -4518,3 +4518,951 @@ jQuery에 선택자로 원하는 요소를 선택하지 못하는 경우 선택�
 
 <br><hr><br>
 
+### Ajax 이벤트 메소드
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 81 : jQuery Ajax 이벤트 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h2>jQuery Ajax 이벤트 메소드</h2>
+        <p>ajaxStart(), ajaxStop(), ajaxComplete(), ajaxSuccess(), ajaxError(), ajaxSend()</p>
+        <h3>ajaxStart() : ajax 기능이 시작될 때 발생하는 이벤트</h3>
+        <h3>ajaxStop() : ajax 기능이 정지될 때 발생하는 이벤트</h3>
+        <h3>ajaxComplete() : ajax 기능이 완료될 때 발생하는 이벤트</h3>
+        <h3>ajaxSuccess() : ajax 기능이 성공 수행되었을 때 발생하는 이벤트</h3>
+        <h3>ajaxError() : ajax 기능이 실패 수행되었을 때 발생하는 이벤트</h3>
+        <h3>ajaxSend() : ajax에 의해 데이터 전송 또는 수신이 이루어질 때 발생하는 이벤트</h3>
+        <h2 style="color:red">이벤트 발생 순서</h2>
+        <p>성공 수행시 : start -> send -> sucess -> complete -> stop</p>
+        <p>실패 수행시 : start -> send -> error -> stop</p>
+        <h2>데이터 로딩 메소드 - load()</h2>
+        <article class="data">
+            <input type="button" id="trigger1" value="success button"/>
+            <input type="button" id="trigger2" value="error button"/><br>
+            <div style="display:inline;">log : </div>
+            <div id="log" style="display:inline;"></div><br>
+            <div style="display:inline;">result : </div>
+            <div id="result" style="display:inline;"></div><br>            
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+    $(document).ready(function(){
+        $("#log").css("display","none");
+    });    
+    $(document).ajaxStart(function(event, xhr, settings){ 
+        $("#log").delay(500).fadeIn(500, function() {
+            $(this).text('start').delay(1000).fadeOut(500);
+        });    
+    })
+    .ajaxStop(function(event, xhr, settings){ 
+        $("#log").delay(500).fadeIn(500, function() {
+            $(this).text('stop').delay(1000).fadeOut(500);
+        });    
+    })
+    .ajaxComplete(function(event, xhr, settings){ 
+        if(settings.url === "test.html") {
+            $("#log").delay(500).fadeIn(500, function() {
+                $(this).text('complete').delay(1000).fadeOut(500);
+            }); 
+        }
+    })
+    .ajaxSuccess(function(event, xhr, settings){ 
+        $("#log").delay(500).fadeIn(600, function() {
+            $(this).text('success').delay(1000).fadeOut(500);
+        });  
+    })
+    .ajaxError(function(event, xhr, settings){ 
+        $("#log").delay(500).fadeIn(600, function() {
+            $(this).text('error').delay(1000).fadeOut(500);
+        });  
+    })
+    .ajaxSend(function(event, xhr, settings){ 
+        $("#log").delay(500).fadeIn(600, function() {
+            $(this).text('send').delay(1000).fadeOut(600);
+        });  
+    });
+    </script>
+    <script>
+    $(document).ready(function(){
+	  $('#trigger1').click(function() {
+        $("#log").stop();
+		$('#result').load("test.html");
+	  });
+	  $('#trigger2').click(function() {
+		$('#result').load("error.html");
+	  });	  
+    });
+    </script>
+</body>
+</html>
+```
+
+### Ajax 로딩
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 82 : jQuery Ajax 문서로딩 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h2>jQuery Ajax 문서 로딩 메소드 - load()</h2>
+        <article class="data">
+            <input type="button" id="trigger1" value="success button"/>
+            <input type="button" id="trigger2" value="target button"/>
+            <input type="button" id="trigger3" value="json button"/><br>
+            <div style="display:inline;">result : </div>
+            <div id="result" style="display:inline;"></div><br>            
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+    $(document).ready(function(){
+	  $('#trigger1').click(function() {
+		$('#result').load("test.html #projects li");
+	  });
+	  $('#trigger2').click(function() {
+		$('#result').load("error.html", function(response, status, xhr){
+            if (status == "error") {
+                var msg = "문서의 내용을 불러오지 못했습니다.";
+                $("#result").html( msg + xhr.status + " " + xhr.statusText );
+            }
+        });
+	  });
+	  $('#trigger3').click(function() {
+		$('#result').load("data.json");
+	  });
+    });
+    </script>
+</body>
+</html>
+```
+
+### Ajax 쿼리스트링의 데이터 직렬화
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 83 : jQuery Ajax 전송데이터 파라미터화 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; line-height:2.8; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h2>jQuery Ajax 데이터의 직렬화 메소드 - serialize()</h2>
+        <p>Get 방식으로 전송할 데이터를 하나의 매개값으로 쿼리스트링화(직렬화)할 수 있음</p>
+        <article class="data">
+            <form>
+                <select name="job">
+                  <option>Employment</option>
+                  <option>Founded</option>
+                </select>
+                <br>
+                <select name="position" multiple="multiple">
+                  <option>FRONT-END</option>
+                  <option>SI</option>
+                  <option selected="selected">SM</option>
+                </select>
+                <br>
+                <input type="checkbox" name="area" value="수도권" id="ch1">
+                <label for="ch1">수도권</label>
+                <input type="checkbox" name="area" value="비수도권" checked="checked" id="ch2">
+                <label for="ch2">지방</label>
+                <br>
+                <input type="radio" name="part" value="개발자" checked="checked" id="r1">
+                <label for="r1">개발자</label>
+                <input type="radio" name="part" value="비개발자" id="r2">
+                <label for="r2">비개발자</label>
+              </form> <br>
+              <button type="button" id="btn1">전송할 데이터 확인</button>
+              <div id="result"></div>           
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+    $(document).ready(function(){
+        function dataValues(){
+            var str = $("form").serialize();
+            $("#result").text(str);
+            //$.ajax({url:"research.do?"+str})
+        }
+        $("#btn1").on("click", function() { dataValues(); } );
+    });
+    </script>
+</body>
+</html>
+```
+
+### Ajax 전송 데이터 매개변수의 배열화
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 84 : jQuery Ajax 전송데이터 배열화 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; line-height:2.8; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h2>jQuery Ajax 데이터의 배열화 메소드 - serializeArray()</h2>
+        <article class="data">
+            <form>
+                <div><input type="text" name="a" value="1" id="a"></div>
+                <div><input type="text" name="b" value="2" id="b"></div>
+                <div><input type="hidden" name="c" value="3" id="c"></div>
+                <div>
+                  <textarea name="d" rows="8" cols="40">4</textarea>
+                </div>
+                <div><select name="e">
+                  <option value="5" selected="selected">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                </select></div>
+                <div>
+                  <input type="checkbox" name="f" value="8" id="f">
+                </div>
+                <div>
+                  <input type="submit" name="g" value="전송" id="g">
+                </div>
+            </form>  
+            <br>
+            <div id="result"></div>     
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+    $(document).ready(function(){
+        $("form").submit(function(event) {
+            var data = $(this).serializeArray();
+            $("#result").text(data);
+            console.log(data);
+            event.preventDefault();
+        });
+    });
+    </script>
+</body>
+</html>
+```
+
+### Ajax 의 설정
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 85 : jQuery Ajax 전송받을 데이터 지정</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; line-height:2.8; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h2>jQuery Ajax 전송받을 데이터 지정 메소드 - ajaxSetup()</h2>
+        <article class="data">
+            <div><h2>AJAX Setup</h2></div>
+            <button type="button" id="btn1">데이터 받아오기</button>    
+            <div id="result"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+    $(document).ready(function(){
+        $("#btn1").click(function(){
+            $.ajaxSetup({url: "test.txt", 
+                success: function(result){
+                    $("#result").html(result);
+                }
+            });
+            //전송 받기 전의 해당 파일과 전송에 관한 정보를 객체에 저장하기
+            var currentRequests = {};   //저장 객체 선언
+            $.ajaxPrefilter(function(options, originalOptions, jqXHR ) {
+                console.log(options.url);
+                if (options.abortOnRetry) {
+                    if (currentRequests[options.url]) {
+                        currentRequests[options.url].abort();
+                    }
+                    currentRequests[options.url] = jqXHR;
+                }
+                console.log(currentRequests);
+            });
+            
+            //전송 객체를 생성 - 이미지 객체를 생성
+            $.ajaxTransport("image", function(s) {
+                if ( s.type === "GET" && s.async ) {
+                    var image;
+                    return {
+                        send: function( _ , callback ) {
+                            image = new Image();
+                            function done( status ) {
+                                if(image) {
+                                    var statusText = (status === 200) ? "success" : "error",
+                                    tmp = image;
+                                    image = image.onreadystatechange = image.onerror = image.onload = null;
+                                    callback( status, statusText, { image: tmp } );
+                                }
+                            }
+                            image.onreadystatechange = image.onload = function() {
+                                done( 200 );
+                            };
+                            image.onerror = function() {
+                                done( 404 );
+                            };
+                            image.src = s.url;
+                        },
+                        abort: function() {
+                            if ( image ) {
+                                image = image.onreadystatechange = image.onerror = image.onload = null;
+                            }
+                        }
+                    };
+                }
+            });
+            $.ajax();
+        });
+    });
+    </script>
+</body>
+</html>
+```
+
+### Ajax의 데이터 선택적 송수신 메소드
+
+### Ajax 객체 데이터 수신
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 86 : jQuery Ajax 데이터 송수신 처리1</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; line-height:2.8; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h2>jQuery Ajax 데이터 송수신 메소드 - ajax()</h2>
+        <article class="data">
+            <div><h2>AJAX Data Trans</h2></div>
+            <input type="text" id="id" name="id" placeholder="id 입력" autofocus>
+            <button type="button" id="btn1">데이터 전송 및 받기</button>    
+            <ul id="result"></ul>
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+    $(document).ready(function(){
+        $("#btn1").click(function(){
+            var id = $("#id").val();
+            if(id==""){
+                alert("값이 비어 있습니다.");
+                return false;
+            }
+            //ajax 메소드는 get과 post 방식을 선택할 수 있음.
+            $.ajax({
+                url:"getMember.do?userId="+id,     //요청 데이터를 받아 처리하는 서버측 컨트롤러 또는 페이지 주소
+                //data:id,      //post 방식으로 서버로 전송할 데이터 - string 또는 object
+                method:"GET",   //전송 방식 : post, get, put
+                dataType:"json" //반환받을 데이터 타입 - json, xml, script, html
+            }) 
+            .done(function(res){ //요청 처리에 대한 성공시 처리할 문장
+                $.each(res, function(key, value){
+                    $("#result").append("<li>"+key+" : "+value+"</li>");
+                });
+            })
+            .fail(function(xhr, status, errorThrown){  //요청 처리에 대한 실패시 처리할 문장
+                $("#result").append("<li>"+xhr.status+","+xhr.statusText+"</li>");
+            })
+            .always(function(xhr, status){  //요청처리를 실패하든 성공하든 무조건 실행해야 하는 내용 기술 
+                $("#result").append("<li>"+xhr.status+"</li>");
+            });
+        });
+    });
+    //컨트롤러에서
+    /*
+    //회원관리 목록
+	@GetMapping("test3")
+	public String testLoad3(Model model) throws Exception {
+		return "ajax/test3";
+	}
+	
+    //회원 상세 정보 요청
+	@GetMapping("getUser.do")
+	@ResponseBody
+	public UserDTO getUser(@RequestParam("id") String id, Model model) throws Exception {
+		UserDTO user = ajaxService.getUser(id);
+		return user;
+	}
+    */
+    </script>
+</body>
+</html>
+```
+
+### Ajax 리스트 데이터 수신
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 87 : jQuery Ajax 데이터 송수신 처리2 - get</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; line-height:2.8; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    .table th { border-top:2px solid #333; }
+    .table td, .table th { border-bottom:2px solid #333; } 
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h2>jQuery Ajax 데이터 송수신 메소드 - ajax()</h2>
+        <article class="data">
+            <div><h2>AJAX Data Trans</h2></div>
+            <button type="button" id="btn1">데이터 목록 받기</button>    
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>아이디</th>
+                        <th>비밀번호</th>
+                        <th>이름</th>
+                    </tr>
+                </thead>
+                <tbody id="result">
+
+                </tbody>
+            </table>
+            <a href="/memberList3.do">회원 목록 페이지</a><br>
+            <div id="msg"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+    $(document).ready(function(){
+        $("#btn1").click(function(){
+            $.ajax({
+                url:"memberList.do",     //요청 데이터를 받아 처리하는 서버측 컨트롤러 또는 페이지 주소
+                //data:id,      //post 방식으로 서버로 전송할 데이터 - string 또는 object
+                contentType:'application/json;charset=utf-8',
+                method:"GET",   //전송 방식 : post, get, put
+                dataType:"json" //반환받을 데이터 타입 - json, xml, script, html
+            }) 
+            .done(function(users){ //요청 처리에 대한 성공시 처리할 문장
+                console.log(users);
+                $.each(users, function(index, value){
+                    var tr = "<tr>";
+                    tr = tr + "<td>"+index+" : "+value['userId']+"</td>";
+                    tr = tr + "<td>"+index+" : "+value['userPw']+"</td>";                    
+                    tr = tr + "<td>"+index+" : "+value['userName']+"</td>";
+                    tr = tr + "</tr>";
+                    $("#result").append(tr);
+                });
+            })
+            .fail(function(xhr, status, errorThrown){  //요청 처리에 대한 실패시 처리할 문장
+                $("#result").append("<tr><td>error</td><td>"+xhr.status+"</td><td>"+xhr.statusText+"</td></tr>");
+            })
+            .always(function(xhr, status){  //요청처리를 실패하든 성공하든 무조건 실행해야 하는 내용 기술 
+                $("#msg").text(xhr.status);
+            });
+        });
+    });
+    //컨트롤러에서
+    /*
+    회원 관리 창 
+	@GetMapping("test2")
+	public String testLoad2(Model model) throws Exception {
+		return "ajax/test2";
+	}
+	
+    //회원 목록 요청
+	@GetMapping("userList.do")
+	@ResponseBody
+	public List<UserDTO> userList(Model model) throws Exception {
+		List<UserDTO> userList = ajaxService.userList();
+		return userList;
+	}
+    */
+    </script>
+</body>
+</html>
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 88 : jQuery Ajax 데이터 송수신 처리3 - post</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; line-height:2.8; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    .table th { border-top:2px solid #333; }
+    .table td, .table th { border-bottom:2px solid #333; } 
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h2>jQuery Ajax 데이터 송수신 메소드 - ajax()</h2>
+        <article class="data">
+            <div><h2>AJAX Data Trans</h2></div>
+            <button type="button" id="btn1">데이터 목록 받기</button>    
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>아이디</th>
+                        <th>비밀번호</th>
+                        <th>이름</th>
+                    </tr>
+                </thead>
+                <tbody id="result">
+
+                </tbody>
+            </table>
+            <a href="/memberList3.do">회원 목록 페이지</a><br>
+            <div id="msg"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+    $(document).ready(function(){
+        $("#btn1").click(function(){
+            $.ajax({
+                url:"memberList2.do",     //요청 데이터를 받아 처리하는 서버측 컨트롤러 또는 페이지 주소
+                //data:id,      //post 방식으로 서버로 전송할 데이터 - string 또는 object
+                contentType:'application/json;charset=utf-8',
+                method:"POST",   //전송 방식 : post, get, put
+                dataType:"json" //반환받을 데이터 타입 - json, xml, script, html
+            }) 
+            .done(function(users){ //요청 처리에 대한 성공시 처리할 문장
+                console.log(users);
+                var data = users["users"];
+                $.each(data, function(index, value){
+                    var tr = "<tr>";
+                    tr = tr + "<td>"+index+" : "+value.userId+"</td>";
+                    tr = tr + "<td>"+index+" : "+value.userPw+"</td>";                    
+                    tr = tr + "<td>"+index+" : "+value.userName+"</td>";
+                    tr = tr + "</tr>";
+                    $("#result").append(tr);
+                });
+            })
+            .fail(function(xhr, status, errorThrown){  //요청 처리에 대한 실패시 처리할 문장
+                $("#result").append("<tr><td>error</td><td>"+xhr.status+"</td><td>"+xhr.statusText+"</td></tr>");
+            })
+            .always(function(xhr, status){  //요청처리를 실패하든 성공하든 무조건 실행해야 하는 내용 기술 
+                $("#msg").text(xhr.status);
+            });
+        });
+    });
+    //컨트롤러에서
+    /*
+    회원 관리 창 
+	@GetMapping("test2")
+	public String testLoad2(Model model) throws Exception {
+		return "ajax/test2";
+	}
+	
+    //회원 목록 요청
+	@GetMapping("userList.do")
+	@ResponseBody
+	public List<UserDTO> userList(Model model) throws Exception {
+		List<UserDTO> userList = ajaxService.userList();
+		return userList;
+	}
+    */
+    </script>
+</body>
+</html>
+```
+
+### Ajax POST 방식을 이용한 폼 데이터 전송
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 88 : jQuery Ajax 데이터 송수신 처리4 - post</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; line-height:2.8; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    .table th { border-top:2px solid #333; }
+    .table td, .table th { border-bottom:2px solid #333; } 
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h2>jQuery Ajax 데이터 송수신 메소드 - ajax()</h2>
+        <article class="data">
+            <div><h2>AJAX Data Trans</h2></div>
+            <form>
+                <input type="text" id="id" name="id" placeholder="아이디 입력">
+                <input type="hidden" id="idck" name="idck" value="no">
+            </form>
+            <button type="button" id="btn1">아이디 중복체크</button><br>
+            <div id="msg"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+    $(document).ready(function(){
+        $("#btn1").click(function(){
+            var id = $("#id").val();
+            if(id==""){
+                alert("아이디가 입력되지 않았습니다.");
+            }
+            $.ajax({
+                url:"idCheck.do",     //요청 데이터를 받아 처리하는 서버측 컨트롤러 또는 페이지 주소
+                data:id,      //post 방식으로 서버로 전송할 데이터 - string 또는 object
+                contentType:'application/json;charset=utf-8',
+                method:"POST",   //전송 방식 : post, get, put
+                dataType:"json" //반환받을 데이터 타입 - json, xml, script, html
+            }) 
+            .done(function(res){ //요청 처리에 대한 성공시 처리할 문장
+                console.log(res);
+            })
+            .fail(function(xhr, status, errorThrown){  //요청 처리에 대한 실패시 처리할 문장
+                $("#msg").text("아이디 중복 체크를 진행하지 못했습니다.");
+            })
+            .always(function(xhr, status){  //요청처리를 실패하든 성공하든 무조건 실행해야 하는 내용 기술 
+
+            });
+        });
+    });
+    //컨트롤러에서
+    /*
+    //아이디 검색 폼
+    @GetMapping("test1")
+	public String testLoad(Model model) throws Exception {
+		return "ajax/test1";
+	}
+	
+	//아이디 중복 체크
+	@GetMapping("idCheck.do")
+	@ResponseBody
+	public boolean idCheck(@RequestParam("id") String id) throws Exception {
+		UserDTO user = ajaxService.getUser(id);
+		if(user==null) {
+			return true;
+		} else {
+			return false;	
+		}
+	}
+    */
+    </script>
+</body>
+</html>
+```
+
+```html
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<!-- templates/ajax/test5.html -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 90 : 회원가입</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; line-height:2.8; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    .table th { border-top:2px solid #333; }
+    .table td, .table th { border-bottom:2px solid #333; }
+    #addBtn { display:block; width:100px; height:42px; line-height:42px; background:deepskyblue; cursor: pointer; margin-bottom:28px; text-align:center; color:#fff; }
+	#submitBtn, #proBtn { border:none; display:block; padding:8px; background:deeppink; color: #FFF2F6; cursor:pointer; margin:18px; float:left; text-decoration:none; box-sizing:border-box; font-size:14px; line-height:16px; }    
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h2>회원 가입</h2>
+        <article class="data">
+            <div><h2>회원 등록</h2></div>	 
+		    <br><hr><br>		 
+		    <form th:action="@{/ajax/addUser.do}" th:object="${user}" method="post">              
+                <table class="table">
+                	<tbody>
+                        <tr>
+                        	<th><label for="id">사용자 아이디</label></th>
+                            <td>
+                            	<input type="text" class="form-control" id="id" th:field="*{id}" name="id" placeholder="사용자 아이디">
+                            </td>
+                        </tr>
+                        <tr>
+                        	<th><label for="name">이름</label></th>
+                            <td>
+                            	<input type="text" class="form-control" id="name" th:field="*{name}" name="name" placeholder="사용자 이름">
+                            </td>
+                        </tr>
+                        <tr>
+                        	<th><label for="pw">비밀번호</label></th>
+                            <td>
+                            	<input type="password" class="form-control" id="pw" th:field="*{pw}" name="pw" placeholder="사용자 비밀번호">
+                            </td>
+                        </tr>
+                        <tr>
+                        	<th><label for="pw2">비밀번호 확인</label></th>
+                            <td>
+                            	<input type="password" class="form-control" id="pw2" name="pw2" placeholder="사용자 비밀번호">
+                            </td>
+                        </tr>
+                        <tr>
+                        	<th><label for="email">이메일</label></th>
+                            <td>
+                            	<input type="email" class="form-control" id="email" th:field="*{email}" name="email" placeholder="이메일 입력">
+                            </td>
+                        </tr>
+                	</tbody>
+                </table>
+                <div class="container" role="group">
+                	<input type="submit" class="btn btn-danger inline" value="회원가입" />
+                </div>
+             </form>
+             <script>
+             //컨트롤러에서    
+             /*
+                //회원 가입 폼
+                @GetMapping("test6")
+                public String testLoad6(@ModelAttribute("user") UserDTO user, Model model) throws Exception {
+                    return "ajax/test6";
+                }
+                
+                @PostMapping("addUser.do")
+                public String addUser(@ModelAttribute("user") UserDTO user, Model model) throws Exception {
+                    AES256 aes256 = new AES256();
+                    user.setPw(aes256.encrypt(user.getPw()));
+                    ajaxService.addUser(user);
+                    return "ajax/test1";
+                }
+             */
+             </script>		
+        </article>
+    </section>
+    <br><hr><br>
+</body>
+</html>
+```
+
+### Ajax 멀티파트를 이용한 이미지 업로드
+```html
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 89 : jQuery Ajax 데이터 송수신 처리5 - post</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; line-height:2.8; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    .table th { border-top:2px solid #333; }
+    .table td, .table th { border-bottom:2px solid #333; }
+    #addBtn { display:block; width:100px; height:42px; line-height:42px; background:deepskyblue; cursor: pointer; margin-bottom:28px; text-align:center; color:#fff; }
+	#submitBtn, #proBtn { border:none; display:block; padding:8px; background:deeppink; color: #FFF2F6; cursor:pointer; margin:18px; float:left; text-decoration:none; box-sizing:border-box; font-size:14px; line-height:16px; }    
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h2>jQuery Ajax 데이터 송수신 메소드 - ajax()</h2>
+        <article class="data">
+            <div><h2>AJAX Data Trans</h2></div>	 
+		    <br><hr><br>		 
+		    <form id="addForm">
+		    	
+		        <div>
+		            <label for="img_upload" id="addBtn">이미지 추가</label>
+		            <input type="file" name="img_upload" id="img_upload" onchange="previewImage(this,'View_area')" style="display: none;" multiple>
+		            <span id='View_area' style='display:block; position:relative; color:black; border: 0px solid black;'></span>
+		        </div>
+		 
+		        <div>
+		            <input type="button" class="btn" id="submitBtn" onclick="dataSubmit();" value="전송하기"/>
+		            <a class="btn" id="proBtn" href="">이미지 업로드 완료</a>
+		        </div>
+		 		<br>
+		        <ul id="resultDiv">
+
+		        </ul>
+		        
+		        <div id="inputData">
+		        	
+		        </div>
+		    </form>
+            <script>
+			function dataSubmit() {
+				var maxSize = 10 * 1024 * 1024;
+				var sendData = "";
+				if ($('#img_upload')[0].files.length >= 4) {
+					alert("첨부 가능한 개수를 초과하였습니다. 3개 까지 첨부가 가능합니다.");
+				    return false;
+				}
+				for(var i in $('#img_upload')[0].files){
+					if ($('#img_upload')[0].files[i].size > maxSize) {
+						alert("첨부된 파일 중에 용량이 초과된 파일이 있습니다.\n이미지를 더블클릭하여 삭제 후 다시 선택하여 주시기 바랍니다.");
+					    return false;
+					}
+				}
+				
+				var form = $("#addForm")[0]; 
+			    var data = new FormData(form);
+			 
+			    $.ajax({
+			        url: "/ajax/url.do",
+			        type: "POST",
+			        enctype: 'multipart/form-data',
+			        data: data,
+			        processData: false,
+			        contentType: false,
+			        dataType:"json",
+			    }).done(function (qty) {
+					console.log(qty);
+					$.each(qty, function(index, value){
+						$("#resultDiv").append("<li>"+value+"</li>");
+						$("#inputData").append("<input type='hidden' name='imgSrc"+index+"' value='"+value+"'>");
+						sendData += "<input type='hidden' name='imgSrc"+index+"' value='"+value+"'>";	
+					});
+			    });
+			}
+            /*
+            application.properties 에서 다음 사항 추가
+            # multipart setting
+            spring.servlet.multipart.enabled=true
+            spring.servlet.multipart.location=/Users
+            spring.servlet.multipart.max-request-size=30MB
+            spring.servlet.multipart.max-file-size=10MB
+            part4.upload.path=D:/kim6/pro06/myapp/src/main/resources/static/images
+            part5.upload.path=D:/kim6/pro06/temp
+
+
+            컨트롤러에서
+            @Value("${part4.upload.path}")
+            private String uploadPath;
+
+            @Value("${part5.upload.path}")
+            private String uploadPath2;
+            
+            @RequestMapping(value="url.do", method = {RequestMethod.GET, RequestMethod.POST})
+            @ResponseBody
+            public List<String> getData(Model model, MultipartHttpServletRequest req){
+                
+                List<MultipartFile> multipartFileList = new ArrayList<>(); 
+                List<String> fileQt = new ArrayList<String>(); 
+                try {
+                    MultiValueMap<String, MultipartFile> files = req.getMultiFileMap();
+                    for (Map.Entry<String, List<MultipartFile>> entry : files.entrySet()) {
+                        List<MultipartFile> fileList = entry.getValue();
+                        for (MultipartFile file : fileList) {
+                            if (file.isEmpty()) continue;
+                            multipartFileList.add(file);
+                            String originalName = file.getOriginalFilename();
+                            String fileName = originalName.substring(originalName.lastIndexOf("//")+1);
+                            String folderPath = makeFolder(); //날짜 폴더 생성
+                            String uuid = UUID.randomUUID().toString(); //UUID
+                            String saveName = uploadPath + File.separator + folderPath +File.separator + uuid + "_" + fileName; //저장할 파일 이름 중간에 "_"를 이용하여 구분                    
+                            Path savePath = Paths.get(saveName);
+                            //images안의 디렉토리 경로와 파일 이름 별도로 저장하여 서비스로 전달하기 위한 이름 
+                            String singleFileName = File.separator + folderPath +File.separator + uuid + "_" + fileName;
+                            fileQt.add(singleFileName);
+                            //Paths.get() 메서드는 특정 경로의 파일 정보를 가져옵니다.(경로 정의하기)
+                            file.transferTo(savePath);
+                        }
+                    }
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                return fileQt;
+            }
+            
+            private String makeFolder(){
+            String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+            //LocalDate를 문자열로 포멧
+            String folderPath = str.replace("/",File.separator);
+            File uploadPathFoler = new File(uploadPath, folderPath);
+                
+            if(uploadPathFoler.exists() == false){
+                    uploadPathFoler.mkdirs();
+            }
+            return folderPath;
+            }
+            */
+            </script>
+		    <script src="/js/imageLoad.js"></script>
+        </article>
+    </section>
+    <br><hr><br>
+</body>
+</html>
+```

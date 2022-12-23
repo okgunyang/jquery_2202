@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 87 : jQuery Ajax 데이터 송수신 처리2 - get</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; line-height:2.8; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    .table th { border-top:2px solid #333; }
+    .table td, .table th { border-bottom:2px solid #333; } 
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h2>jQuery Ajax 데이터 송수신 메소드 - ajax()</h2>
+        <article class="data">
+            <div><h2>AJAX Data Trans</h2></div>
+            <button type="button" id="btn1">데이터 목록 받기</button>    
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>아이디</th>
+                        <th>비밀번호</th>
+                        <th>이름</th>
+                    </tr>
+                </thead>
+                <tbody id="result">
+
+                </tbody>
+            </table>
+            <a href="/memberList3.do">회원 목록 페이지</a><br>
+            <div id="msg"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+    $(document).ready(function(){
+        $("#btn1").click(function(){
+            $.ajax({
+                url:"memberList.do",     //요청 데이터를 받아 처리하는 서버측 컨트롤러 또는 페이지 주소
+                //data:id,      //post 방식으로 서버로 전송할 데이터 - string 또는 object
+                contentType:'application/json;charset=utf-8',
+                method:"GET",   //전송 방식 : post, get, put
+                dataType:"json" //반환받을 데이터 타입 - json, xml, script, html
+            }) 
+            .done(function(users){ //요청 처리에 대한 성공시 처리할 문장
+                console.log(users);
+                $.each(users, function(index, value){
+                    var tr = "<tr>";
+                    tr = tr + "<td>"+index+" : "+value['userId']+"</td>";
+                    tr = tr + "<td>"+index+" : "+value['userPw']+"</td>";                    
+                    tr = tr + "<td>"+index+" : "+value['userName']+"</td>";
+                    tr = tr + "</tr>";
+                    $("#result").append(tr);
+                });
+            })
+            .fail(function(xhr, status, errorThrown){  //요청 처리에 대한 실패시 처리할 문장
+                $("#result").append("<tr><td>error</td><td>"+xhr.status+"</td><td>"+xhr.statusText+"</td></tr>");
+            })
+            .always(function(xhr, status){  //요청처리를 실패하든 성공하든 무조건 실행해야 하는 내용 기술 
+                $("#msg").text(xhr.status);
+            });
+        });
+    });
+    </script>
+</body>
+</html>

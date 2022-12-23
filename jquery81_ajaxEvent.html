@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 81 : jQuery Ajax 이벤트 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h2>jQuery Ajax 이벤트 메소드</h2>
+        <p>ajaxStart(), ajaxStop(), ajaxComplete(), ajaxSuccess(), ajaxError(), ajaxSend()</p>
+        <h3>ajaxStart() : ajax 기능이 시작될 때 발생하는 이벤트</h3>
+        <h3>ajaxStop() : ajax 기능이 정지될 때 발생하는 이벤트</h3>
+        <h3>ajaxComplete() : ajax 기능이 완료될 때 발생하는 이벤트</h3>
+        <h3>ajaxSuccess() : ajax 기능이 성공 수행되었을 때 발생하는 이벤트</h3>
+        <h3>ajaxError() : ajax 기능이 실패 수행되었을 때 발생하는 이벤트</h3>
+        <h3>ajaxSend() : ajax에 의해 데이터 전송 또는 수신이 이루어질 때 발생하는 이벤트</h3>
+        <h2 style="color:red">이벤트 발생 순서</h2>
+        <p>성공 수행시 : start -> send -> sucess -> complete -> stop</p>
+        <p>실패 수행시 : start -> send -> error -> stop</p>
+        <h2>데이터 로딩 메소드 - load()</h2>
+        <article class="data">
+            <input type="button" id="trigger1" value="success button"/>
+            <input type="button" id="trigger2" value="error button"/><br>
+            <div style="display:inline;">log : </div>
+            <div id="log" style="display:inline;"></div><br>
+            <div style="display:inline;">result : </div>
+            <div id="result" style="display:inline;"></div><br>            
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+    $(document).ready(function(){
+        $("#log").css("display","none");
+    });    
+    $(document).ajaxStart(function(event, xhr, settings){ 
+        $("#log").delay(500).fadeIn(500, function() {
+            $(this).text('start').delay(1000).fadeOut(500);
+        });    
+    })
+    .ajaxStop(function(event, xhr, settings){ 
+        $("#log").delay(500).fadeIn(500, function() {
+            $(this).text('stop').delay(1000).fadeOut(500);
+        });    
+    })
+    .ajaxComplete(function(event, xhr, settings){ 
+        if(settings.url === "test.html") {
+            $("#log").delay(500).fadeIn(500, function() {
+                $(this).text('complete').delay(1000).fadeOut(500);
+            }); 
+        }
+    })
+    .ajaxSuccess(function(event, xhr, settings){ 
+        $("#log").delay(500).fadeIn(600, function() {
+            $(this).text('success').delay(1000).fadeOut(500);
+        });  
+    })
+    .ajaxError(function(event, xhr, settings){ 
+        $("#log").delay(500).fadeIn(600, function() {
+            $(this).text('error').delay(1000).fadeOut(500);
+        });  
+    })
+    .ajaxSend(function(event, xhr, settings){ 
+        $("#log").delay(500).fadeIn(600, function() {
+            $(this).text('send').delay(1000).fadeOut(600);
+        });  
+    });
+    </script>
+    <script>
+    $(document).ready(function(){
+	  $('#trigger1').click(function() {
+        $("#log").stop();
+		$('#result').load("test.html");
+	  });
+	  $('#trigger2').click(function() {
+		$('#result').load("error.html");
+	  });	  
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 85 : jQuery Ajax 전송받을 데이터 지정</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; line-height:2.8; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h2>jQuery Ajax 전송받을 데이터 지정 메소드 - ajaxSetup()</h2>
+        <article class="data">
+            <div><h2>AJAX Setup</h2></div>
+            <button type="button" id="btn1">데이터 받아오기</button>    
+            <div id="result"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+    $(document).ready(function(){
+        $("#btn1").click(function(){
+            $.ajaxSetup({url: "test.txt", 
+                success: function(result){
+                    $("#result").html(result);
+                }
+            });
+            //전송 받기 전의 해당 파일과 전송에 관한 정보를 객체에 저장하기
+            var currentRequests = {};   //저장 객체 선언
+            $.ajaxPrefilter(function(options, originalOptions, jqXHR ) {
+                console.log(options.url);
+                if (options.abortOnRetry) {
+                    if (currentRequests[options.url]) {
+                        currentRequests[options.url].abort();
+                    }
+                    currentRequests[options.url] = jqXHR;
+                }
+                console.log(currentRequests);
+            });
+            
+            //전송 객체를 생성 - 이미지 객체를 생성
+            $.ajaxTransport("image", function(s) {
+                if ( s.type === "GET" && s.async ) {
+                    var image;
+                    return {
+                        send: function( _ , callback ) {
+                            image = new Image();
+                            function done( status ) {
+                                if(image) {
+                                    var statusText = (status === 200) ? "success" : "error",
+                                    tmp = image;
+                                    image = image.onreadystatechange = image.onerror = image.onload = null;
+                                    callback( status, statusText, { image: tmp } );
+                                }
+                            }
+                            image.onreadystatechange = image.onload = function() {
+                                done( 200 );
+                            };
+                            image.onerror = function() {
+                                done( 404 );
+                            };
+                            image.src = s.url;
+                        },
+                        abort: function() {
+                            if ( image ) {
+                                image = image.onreadystatechange = image.onerror = image.onload = null;
+                            }
+                        }
+                    };
+                }
+            });
+            $.ajax();
+        });
+    });
+    </script>
+</body>
+</html>

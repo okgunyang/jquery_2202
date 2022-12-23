@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 84 : jQuery Ajax 전송데이터 배열화 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; line-height:2.8; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h2>jQuery Ajax 데이터의 배열화 메소드 - serializeArray()</h2>
+        <article class="data">
+            <form>
+                <div><input type="text" name="a" value="1" id="a"></div>
+                <div><input type="text" name="b" value="2" id="b"></div>
+                <div><input type="hidden" name="c" value="3" id="c"></div>
+                <div>
+                  <textarea name="d" rows="8" cols="40">4</textarea>
+                </div>
+                <div><select name="e">
+                  <option value="5" selected="selected">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                </select></div>
+                <div>
+                  <input type="checkbox" name="f" value="8" id="f">
+                </div>
+                <div>
+                  <input type="submit" name="g" value="전송" id="g">
+                </div>
+            </form>  
+            <br>
+            <div id="result"></div>     
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+    $(document).ready(function(){
+        $("form").submit(function(event) {
+            var data = $(this).serializeArray();
+            $("#result").text(data);
+            console.log(data);
+            event.preventDefault();
+        });
+    });
+    </script>
+</body>
+</html>

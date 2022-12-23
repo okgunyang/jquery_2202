@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 83 : jQuery Ajax 전송데이터 파라미터화 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; line-height:2.8; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h2>jQuery Ajax 데이터의 직렬화 메소드 - serialize()</h2>
+        <p>Get 방식으로 전송할 데이터를 하나의 매개값으로 쿼리스트링화(직렬화)할 수 있음</p>
+        <article class="data">
+            <form>
+                <select name="job">
+                  <option>Employment</option>
+                  <option>Founded</option>
+                </select>
+                <br>
+                <select name="position" multiple="multiple">
+                  <option>FRONT-END</option>
+                  <option>SI</option>
+                  <option selected="selected">SM</option>
+                </select>
+                <br>
+                <input type="checkbox" name="area" value="수도권" id="ch1">
+                <label for="ch1">수도권</label>
+                <input type="checkbox" name="area" value="비수도권" checked="checked" id="ch2">
+                <label for="ch2">지방</label>
+                <br>
+                <input type="radio" name="part" value="개발자" checked="checked" id="r1">
+                <label for="r1">개발자</label>
+                <input type="radio" name="part" value="비개발자" id="r2">
+                <label for="r2">비개발자</label>
+              </form> <br>
+              <button type="button" id="btn1">전송할 데이터 확인</button>
+              <div id="result"></div>           
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+    $(document).ready(function(){
+        function dataValues(){
+            var str = $("form").serialize();
+            $("#result").text(str);
+            //$.ajax({url:"research.do?"+str})
+        }
+        $("#btn1").on("click", function() { dataValues(); } );
+    });
+    </script>
+</body>
+</html>
